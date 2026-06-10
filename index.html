@@ -18,6 +18,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        html {
+            font-size: 112.5%; /* 18px base — scales all rem units up ~12.5% */
+        }
+
         :root {
             --gold-primary: #FFD700;
             --gold-light: #FFE55C;
@@ -510,69 +514,43 @@
 
                     <!-- 2. HBD TEXT WRAPPER (Pops out after gift opens) -->
                     <div id="hbd-anim-container" class="absolute w-full flex flex-col items-center opacity-0 scale-0 z-40">
-                        <div id="hbd-3d-wrapper">
-                            <h1 class="hbd-3d-text tracking-wider flex justify-center items-center flex-wrap">
-                                <!-- Diamond defs -->
-                                <svg width="0" height="0" style="position:absolute;pointer-events:none">
-                                    <defs>
-                                        <filter id="dm-glow" x="-40%" y="-40%" width="180%" height="180%">
-                                            <feGaussianBlur stdDeviation="3" result="b"/>
-                                            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                                        </filter>
-                                    </defs>
-                                </svg>
-                                <!-- Front diamond -->
-                                <svg class="hbd-crown inline-block" viewBox="0 0 100 82" style="width:0.9em;height:0.82em;overflow:visible;vertical-align:middle" filter="url(#dm-glow)">
-                                    <!-- Crown fills -->
-                                    <polygon points="18,14 5,38 30,38" fill="#5a3800"/>
-                                    <polygon points="18,14 30,38 50,38 50,14" fill="#FFF0A0"/>
-                                    <polygon points="50,14 50,38 70,38 82,14" fill="#FFD700"/>
-                                    <polygon points="82,14 70,38 95,38" fill="#B8860B"/>
-                                    <!-- Pavilion fills -->
-                                    <polygon points="5,38 30,38 50,80" fill="#3d2800"/>
-                                    <polygon points="30,38 50,38 50,80" fill="#8B6914"/>
-                                    <polygon points="50,38 70,38 50,80" fill="#DAA520"/>
-                                    <polygon points="70,38 95,38 50,80" fill="#FFD700"/>
-                                    <!-- Outline + inner lines -->
-                                    <polygon points="18,14 82,14 95,38 50,80 5,38" fill="none" stroke="#FFD700" stroke-width="2" stroke-linejoin="round"/>
-                                    <line x1="5" y1="38" x2="95" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="18" y1="14" x2="30" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="50" y1="14" x2="50" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="82" y1="14" x2="70" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="30" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="50" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="70" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <!-- Specular -->
-                                    <circle cx="26" cy="24" r="2.5" fill="white" opacity="0.9" filter="url(#dm-glow)"/>
-                                </svg>
-                                <span class="inline-block" style="width: clamp(8px, 2vw, 20px);"></span>
+                        <div id="hbd-3d-wrapper" class="flex flex-col items-center">
+                            <!-- Diamond defs -->
+                            <svg width="0" height="0" style="position:absolute;pointer-events:none">
+                                <defs>
+                                    <filter id="dm-glow" x="-40%" y="-40%" width="180%" height="180%">
+                                        <feGaussianBlur stdDeviation="3" result="b"/>
+                                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                                    </filter>
+                                </defs>
+                            </svg>
+                            <!-- Diamond above text -->
+                            <svg class="hbd-crown block mb-2" viewBox="0 0 100 82" style="width:clamp(2rem,8vw,5rem);height:auto;overflow:visible" filter="url(#dm-glow)">
+                                <polygon points="18,14 5,38 30,38" fill="#5a3800"/>
+                                <polygon points="18,14 30,38 50,38 50,14" fill="#FFF0A0"/>
+                                <polygon points="50,14 50,38 70,38 82,14" fill="#FFD700"/>
+                                <polygon points="82,14 70,38 95,38" fill="#B8860B"/>
+                                <polygon points="5,38 30,38 50,80" fill="#3d2800"/>
+                                <polygon points="30,38 50,38 50,80" fill="#8B6914"/>
+                                <polygon points="50,38 70,38 50,80" fill="#DAA520"/>
+                                <polygon points="70,38 95,38 50,80" fill="#FFD700"/>
+                                <polygon points="18,14 82,14 95,38 50,80 5,38" fill="none" stroke="#FFD700" stroke-width="2" stroke-linejoin="round"/>
+                                <line x1="5" y1="38" x2="95" y2="38" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="18" y1="14" x2="30" y2="38" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="50" y1="14" x2="50" y2="38" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="82" y1="14" x2="70" y2="38" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="30" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="50" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
+                                <line x1="70" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
+                                <circle cx="26" cy="24" r="2.5" fill="white" opacity="0.9" filter="url(#dm-glow)"/>
+                            </svg>
+                            <h1 class="hbd-3d-text tracking-wider flex justify-center items-center">
                                 <span class="hbd-char" style="--i:1">สุ</span>
                                 <span class="hbd-char" style="--i:2">ข</span>
                                 <span class="hbd-char" style="--i:3">สัน</span>
                                 <span class="hbd-char" style="--i:4">ต์</span>
                                 <span class="hbd-char" style="--i:5">วัน</span>
                                 <span class="hbd-char" style="--i:6">เกิด</span>
-                                <span class="inline-block" style="width: clamp(8px, 2vw, 20px);"></span>
-                                <!-- Back diamond -->
-                                <svg class="hbd-crown inline-block" viewBox="0 0 100 82" style="width:0.9em;height:0.82em;overflow:visible;vertical-align:middle" filter="url(#dm-glow)">
-                                    <polygon points="18,14 5,38 30,38" fill="#5a3800"/>
-                                    <polygon points="18,14 30,38 50,38 50,14" fill="#FFF0A0"/>
-                                    <polygon points="50,14 50,38 70,38 82,14" fill="#FFD700"/>
-                                    <polygon points="82,14 70,38 95,38" fill="#B8860B"/>
-                                    <polygon points="5,38 30,38 50,80" fill="#3d2800"/>
-                                    <polygon points="30,38 50,38 50,80" fill="#8B6914"/>
-                                    <polygon points="50,38 70,38 50,80" fill="#DAA520"/>
-                                    <polygon points="70,38 95,38 50,80" fill="#FFD700"/>
-                                    <polygon points="18,14 82,14 95,38 50,80 5,38" fill="none" stroke="#FFD700" stroke-width="2" stroke-linejoin="round"/>
-                                    <line x1="5" y1="38" x2="95" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="18" y1="14" x2="30" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="50" y1="14" x2="50" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="82" y1="14" x2="70" y2="38" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="30" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="50" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <line x1="70" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
-                                    <circle cx="26" cy="24" r="2.5" fill="white" opacity="0.9" filter="url(#dm-glow)"/>
-                                </svg>
                             </h1>
                         </div>
                     </div>
@@ -587,17 +565,12 @@
                     <!-- Card 1 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img1', 'ph1')">
-                                <div id="ph1" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 1</p>
-                                </div>
-                                <img id="img1" src="./1.jpg" class="uploaded-img" alt="Gallery 1" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img1" src="./1.jpg" class="uploaded-img" alt="Gallery 1">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-birthday-cake greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">สุขสันต์วันเกิด</h3>
@@ -609,17 +582,12 @@
                     <!-- Card 2 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img2', 'ph2')">
-                                <div id="ph2" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 2</p>
-                                </div>
-                                <img id="img2" src="./2.jpg" class="uploaded-img" alt="Gallery 2" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img2" src="./2.jpg" class="uploaded-img" alt="Gallery 2">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-gem greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">ความสุขเปี่ยมล้น</h3>
@@ -631,17 +599,12 @@
                     <!-- Card 3 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img3', 'ph3')">
-                                <div id="ph3" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 3</p>
-                                </div>
-                                <img id="img3" src="./3.jpg" class="uploaded-img" alt="Gallery 3" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img3" src="./3.jpg" class="uploaded-img" alt="Gallery 3">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-star greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">ความสำเร็จ</h3>
@@ -653,17 +616,12 @@
                     <!-- Card 4 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img4', 'ph4')">
-                                <div id="ph4" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 4</p>
-                                </div>
-                                <img id="img4" src="./4.jpg" class="uploaded-img" alt="Gallery 4" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img4" src="./4.jpg" class="uploaded-img" alt="Gallery 4">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-coins greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">ร่ำรวยเงินทอง</h3>
@@ -675,17 +633,12 @@
                     <!-- Card 5 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img5', 'ph5')">
-                                <div id="ph5" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 5</p>
-                                </div>
-                                <img id="img5" src="./5.jpg" class="uploaded-img" alt="Gallery 5" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img5" src="./5.jpg" class="uploaded-img" alt="Gallery 5">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-heart greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">เปี่ยมด้วยความรัก</h3>
@@ -697,17 +650,12 @@
                     <!-- Card 6 -->
                     <div class="img-upload-box group">
                         <div class="img-card-inner">
-                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
-                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img6', 'ph6')">
-                                <div id="ph6" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
-                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
-                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 6</p>
-                                </div>
-                                <img id="img6" src="./6.jpg" class="uploaded-img" alt="Gallery 6" style="display: block;">
+                            <div class="img-front flex flex-col items-center justify-center">
+                                <img id="img6" src="./6.jpg" class="uploaded-img" alt="Gallery 6">
                                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
                                     <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
                                 </div>
-                            </label>
+                            </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-crown greeting-icon animate-bounce"></i>
                                 <h3 class="greeting-title drop-shadow-md">สุดยอดผู้นำ</h3>
