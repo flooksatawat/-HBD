@@ -81,10 +81,10 @@
         }
         
         .hbd-wrapper-height {
-            height: 160px;
+            height: 200px;
         }
         @media (min-width: 768px) {
-            .hbd-wrapper-height { height: 240px; }
+            .hbd-wrapper-height { height: 280px; }
         }
 
         /* Project Gift Box Cards */
@@ -205,10 +205,10 @@
 
         @keyframes wave3D {
             0%, 100% { 
-                transform: translateZ(20px) translateY(0px) rotateX(0deg); 
+                transform: translateZ(20px) translateY(0px);
             }
-            50% { 
-                transform: translateZ(70px) translateY(-15px) rotateX(15deg); 
+            50% {
+                transform: translateZ(70px) translateY(-15px);
                 color: #FFFFFF;
                 text-shadow:
                     0 1px 0 #d19a00, 0 2px 0 #c28f00, 0 3px 0 #b38400, 0 4px 0 #a47900, 
@@ -1825,16 +1825,12 @@
                 currentX += (mouseX * 4 - currentX) * 0.05;
                 currentY += (mouseY * 4 - currentY) * 0.05;
 
-                // ** DOM HBD Text 3D Interactive Tilt Engine **
+                // ** DOM HBD Text float only — no tilt **
                 if(currentView === 'home') {
                     const hbdDOM = document.getElementById('hbd-3d-wrapper');
                     if(hbdDOM) {
-                        // Max tilt rotation 25deg up/down and left/right based on mouse
-                        const tiltX = -(currentY * 6); 
-                        const tiltY = (currentX * 6);
-                        // Add organic floating float
                         const floatY = Math.sin(elapsedTime * 1.5) * 6;
-                        hbdDOM.style.transform = `translateZ(20px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(${floatY}px)`;
+                        hbdDOM.style.transform = `translateY(${floatY}px)`;
                     }
                 }
 
