@@ -960,18 +960,20 @@
         function forcePopGift() {
             clearTimeout(giftPopTimeout);
             clearTimeout(textPopTimeout);
-            
+
             const gift = document.getElementById('gift-intro-container');
             const textContainer = document.getElementById('hbd-anim-container');
 
             if (gift && !gift.classList.contains('gift-pop-out')) {
                 gift.classList.add('gift-pop-out');
-                
+
                 // Show HBD text after gift bursts
                 textPopTimeout = setTimeout(() => {
                     if(textContainer) {
                         textContainer.classList.add('text-pop-in');
                     }
+                    // Loop: restart after showing HBD text for 2.5 seconds
+                    setTimeout(playHBDAnimation, 2500);
                 }, 300);
             }
         }
