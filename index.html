@@ -82,22 +82,23 @@
         /* Project Gift Box Cards */
         .project-gift-wrap {
             display: flex;
-            gap: 2rem;
-            justify-content: center;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 0 2rem;
             flex-wrap: nowrap;
         }
         .project-gift-card {
-            flex: 0 0 160px;
-            width: 160px;
+            flex: 0 0 140px;
+            width: 140px;
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
         }
         .project-gift-icon {
-            font-size: clamp(4rem, 10vw, 7rem);
-            color: var(--gold-primary);
-            filter: drop-shadow(0 0 20px rgba(255,215,0,0.7));
+            font-size: clamp(4rem, 10vw, 6rem);
+            color: #FFD700;
+            filter: drop-shadow(0 0 18px rgba(255,215,0,0.85));
             transition: transform 0.3s ease, filter 0.3s ease;
             animation: giftFloat 3s ease-in-out infinite;
         }
