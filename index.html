@@ -699,24 +699,30 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+                    <!-- Card 7: Gift Reveal -->
+                    <div class="img-upload-box" id="card-gift-reveal" onclick="flipGiftCard(this)" style="cursor:pointer;">
+                        <div class="img-card-inner">
+                            <div class="img-front flex flex-col items-center justify-center" style="background: linear-gradient(135deg, #0a1128, #1a264a); padding: 1rem;">
+                                <i class="fas fa-gift" style="font-size: clamp(3rem,10cqi,4rem); color: #FFD700; filter: drop-shadow(0 0 18px rgba(255,215,0,0.85)); animation: giftFloat 3s ease-in-out infinite; margin-bottom: 0.75rem;"></i>
+                                <p style="font-size: clamp(0.75rem,4cqi,0.95rem); font-weight: 800; color: white; text-align: center; line-height: 1.5; margin-bottom: 0.5rem;">ขอมอบ 2 โครงการพิเศษ<br>แทนคำขอบคุณ<br>ทุกคำอวยพร</p>
+                                <p style="font-size: clamp(0.6rem,3cqi,0.75rem); color: rgba(255,215,0,0.7); text-align: center;">แตะเพื่อเปิดของขวัญ</p>
+                            </div>
+                            <div class="img-back" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:0.5rem; padding:0.75rem;">
+                                <p style="font-size:clamp(0.65rem,3.5cqi,0.8rem); font-weight:800; color:white; text-align:center; line-height:1.4; margin-bottom:0.25rem;">ขอมอบ 2 โครงการพิเศษ<br><span style="color:#FFD700;">แทนคำขอบคุณ ทุกคำอวยพร</span></p>
+                                <div class="project-gift-card" id="gift-health" onclick="event.stopPropagation(); openProjectGift('gift-health','view-health')" style="width:100%; flex:none;">
+                                    <i class="fas fa-gift project-gift-icon" style="font-size:clamp(2rem,8cqi,3rem);"></i>
+                                    <p class="project-gift-label" style="font-size:clamp(0.65rem,3.5cqi,0.85rem);">กองทุนสุขภาพ</p>
+                                    <p class="project-gift-sublabel" style="font-size:clamp(0.55rem,2.5cqi,0.7rem);">แตะเพื่อเปิดของขวัญ</p>
+                                </div>
+                                <div class="project-gift-card" id="gift-legacy" onclick="event.stopPropagation(); openProjectGift('gift-legacy','view-legacy')" style="width:100%; flex:none;">
+                                    <i class="fas fa-gift project-gift-icon" style="font-size:clamp(2rem,8cqi,3rem); animation-delay:-1.5s;"></i>
+                                    <p class="project-gift-label" style="font-size:clamp(0.65rem,3.5cqi,0.85rem);">กองมรดก / เงินสดฉุกเฉิน</p>
+                                    <p class="project-gift-sublabel" style="font-size:clamp(0.55rem,2.5cqi,0.7rem);">แตะเพื่อเปิดของขวัญ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-            <div class="text-center mb-16 relative z-20">
-                <div class="w-full rounded-3xl px-8 py-10" style="background: rgba(4,8,20,0.72); backdrop-filter: blur(18px); border: 1px solid rgba(255,215,0,0.18); box-shadow: 0 8px 40px rgba(0,0,0,0.5);">
-                <h2 class="text-2xl md:text-3xl font-bold mb-8 drop-shadow-sm">ขอมอบ 2 โครงการพิเศษ<br><span class="whitespace-nowrap">แทนคำขอบคุณ ทุกคำอวยพร</span></h2>
-                <div class="project-gift-wrap">
-                    <div class="project-gift-card" id="gift-health" onclick="openProjectGift('gift-health','view-health')">
-                        <i class="fas fa-gift project-gift-icon"></i>
-                        <p class="project-gift-label">กองทุนสุขภาพ</p>
-                        <p class="project-gift-sublabel">แตะเพื่อเปิดของขวัญ</p>
-                    </div>
-                    <div class="project-gift-card" id="gift-legacy" onclick="openProjectGift('gift-legacy','view-legacy')">
-                        <i class="fas fa-gift project-gift-icon"></i>
-                        <p class="project-gift-label">กองมรดก / เงินสดฉุกเฉิน</p>
-                        <p class="project-gift-sublabel">แตะเพื่อเปิดของขวัญ</p>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
@@ -1153,6 +1159,11 @@
             setInterval(flipAndScroll, 3500);
         })();
 
+        // Flip card 7 (gift reveal card)
+        function flipGiftCard(card) {
+            card.classList.toggle('flipped');
+        }
+
         // Project Gift Box Open
         function openProjectGift(cardId, viewId) {
             const card = document.getElementById(cardId);
@@ -1186,6 +1197,8 @@
                     const el = document.getElementById(id);
                     if (el) el.classList.remove('pop-out');
                 });
+                const giftCard = document.getElementById('card-gift-reveal');
+                if (giftCard) giftCard.classList.remove('flipped');
                 
             } else if (viewId === 'view-health') {
                 currentView = 'health';
