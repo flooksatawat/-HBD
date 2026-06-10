@@ -361,20 +361,17 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
-        @media (max-width: 640px) {
-            .adl-grid { grid-template-columns: repeat(2, 1fr); }
-        }
         .adl-item {
             text-align: center;
-            padding: 1.25rem;
+            padding: 0.6rem 0.3rem;
             border-radius: 1.5rem;
             background: rgba(255,255,255,0.03);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .adl-item i {
-            font-size: 2.8rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+            margin-bottom: 0.3rem;
             color: #a0aec0;
             transition: all 0.4s ease;
         }
@@ -475,7 +472,7 @@
             .project-gift-label { white-space: normal !important; font-size: 0.9rem !important; }
 
             /* Reduce ADL icon size */
-            .adl-item i { font-size: 2rem; }
+            .adl-item i { font-size: 1.4rem; }
 
             /* Cost counter */
             #cost-counter { font-size: clamp(1.5rem, 8vw, 2.5rem) !important; }
@@ -1016,18 +1013,18 @@
                     </div>
 
                     <!-- Animation Logic Result Banner -->
-                    <div id="claim-banner" class="claim-banner w-full bg-gradient-to-r from-yellow-600 to-yellow-50 text-gray-900 p-4 rounded-xl items-center justify-center font-bold text-base md:text-lg shadow-[0_0_30px_rgba(255,215,0,0.4)] border-2 border-white">
-                        <div class="flex items-center flex-wrap justify-center text-center">
-                            <div class="flex -space-x-2 mr-4" id="claim-icons">
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-30"><i class="fas fa-tshirt"></i></div>
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-20"><i class="fas fa-shower"></i></div>
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-10"><i class="fas fa-utensils"></i></div>
+                    <div id="claim-banner" class="claim-banner w-full bg-gradient-to-r from-yellow-600 to-yellow-50 text-gray-900 py-3 px-2 rounded-xl items-center justify-center font-bold shadow-[0_0_30px_rgba(255,215,0,0.4)] border-2 border-white overflow-hidden">
+                        <div class="flex items-center justify-center gap-1 flex-nowrap" style="white-space:nowrap; font-size:clamp(0.55rem,3vw,0.85rem);">
+                            <div class="flex -space-x-1 shrink-0" id="claim-icons">
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-30" style="font-size:10px;"><i class="fas fa-tshirt"></i></div>
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-20" style="font-size:10px;"><i class="fas fa-shower"></i></div>
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-10" style="font-size:10px;"><i class="fas fa-utensils"></i></div>
                             </div>
-                            <span>เข้าเงื่อนไข 3 ใน 6 อย่าง</span>
-                            <i class="fas fa-plus mx-3 text-white drop-shadow-md"></i>
-                            <span id="calendar-anim" class="bg-white text-yellow-600 px-3 py-1 rounded-lg shadow-inner mx-2 transform scale-0 transition-transform duration-500 delay-300"><i class="far fa-calendar-alt mr-1"></i> 180 วัน</span>
-                            <i class="fas fa-equals mx-3 text-white drop-shadow-md"></i>
-                            <span class="text-black drop-shadow-lg text-xl animate-pulse">เข้าเงื่อนไขรับเงินสด!</span>
+                            <span class="shrink-0">เข้าเงื่อนไข 3 ใน 6</span>
+                            <i class="fas fa-plus text-white drop-shadow-md shrink-0"></i>
+                            <span id="calendar-anim" class="bg-white text-yellow-600 px-1.5 py-0.5 rounded shadow-inner shrink-0 transform scale-0 transition-transform duration-500 delay-300"><i class="far fa-calendar-alt mr-0.5"></i>180 วัน</span>
+                            <i class="fas fa-equals text-white drop-shadow-md shrink-0"></i>
+                            <span class="text-black drop-shadow-lg font-extrabold shrink-0 animate-pulse">รับเงินสด!</span>
                         </div>
                     </div>
 
@@ -1128,20 +1125,19 @@
                         <div class="adl-item" id="adl3-6"><i class="fas fa-toilet"></i><br><span class="text-xs font-medium">ขับถ่าย<br>(Toileting)</span></div>
                     </div>
 
-                    <div id="claim-banner-3" class="claim-banner w-full bg-gradient-to-r from-green-700 to-green-100 text-gray-900 p-4 rounded-xl items-center justify-center font-bold text-base md:text-lg shadow-[0_0_30px_rgba(74,222,128,0.4)] border-2 border-white">
-                        <div class="flex items-center flex-wrap justify-center text-center">
-                            <div class="flex -space-x-2 mr-4">
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-30"><i class="fas fa-tshirt"></i></div>
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-20"><i class="fas fa-shower"></i></div>
-                                <div class="w-9 h-9 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-10"><i class="fas fa-utensils"></i></div>
+                    <div id="claim-banner-3" class="claim-banner w-full bg-gradient-to-r from-green-700 to-green-100 text-gray-900 py-3 px-2 rounded-xl items-center justify-center font-bold shadow-[0_0_30px_rgba(74,222,128,0.4)] border-2 border-white overflow-hidden">
+                        <div class="flex items-center justify-center gap-1 flex-nowrap" style="white-space:nowrap; font-size:clamp(0.55rem,3vw,0.85rem);">
+                            <div class="flex -space-x-1 shrink-0">
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-30" style="font-size:10px;"><i class="fas fa-tshirt"></i></div>
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-20" style="font-size:10px;"><i class="fas fa-shower"></i></div>
+                                <div class="w-6 h-6 rounded-full bg-white flex items-center justify-center text-green-600 shadow-md z-10" style="font-size:10px;"><i class="fas fa-utensils"></i></div>
                             </div>
-                            <span>เข้าเงื่อนไข 3 ใน 6 อย่าง</span>
-                            <i class="fas fa-plus mx-3 text-white drop-shadow-md"></i>
-                            <span id="calendar-anim-3" class="bg-white text-green-600 px-3 py-1 rounded-lg shadow-inner mx-2 transform scale-0 transition-transform duration-500 delay-300"><i class="far fa-calendar-alt mr-1"></i> 180 วัน</span>
-                            <i class="fas fa-equals mx-3 text-white drop-shadow-md"></i>
-                            <span class="text-black drop-shadow-lg text-xl animate-pulse">เข้าเงื่อนไขรับเงินสด!</span>
+                            <span class="shrink-0">เข้าเงื่อนไข 3 ใน 6</span>
+                            <i class="fas fa-plus text-white drop-shadow-md shrink-0"></i>
+                            <span id="calendar-anim-3" class="bg-white text-green-600 px-1.5 py-0.5 rounded shadow-inner shrink-0 transform scale-0 transition-transform duration-500 delay-300"><i class="far fa-calendar-alt mr-0.5"></i>180 วัน</span>
+                            <i class="fas fa-equals text-white drop-shadow-md shrink-0"></i>
+                            <span class="text-black drop-shadow-lg font-extrabold shrink-0 animate-pulse">รับเงินสด!</span>
                         </div>
-
                     </div>
                 </div>
 
