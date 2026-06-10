@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday & Exclusive Gift Presentation</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Prompt -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Three.js for 3D Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        :root {
+            --gold-primary: #FFD700;
+            --gold-light: #FFE55C;
+            --gold-dark: #B8860B;
+            --dark-blue: #040814;
+            --glass-bg: rgba(4, 10, 28, 0.92);
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background-color: var(--dark-blue);
+            color: white;
+            font-family: 'Prompt', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* 3D Canvas Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 2rem;
+            box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255,255,255,0.1);
+        }
+
+        .text-gold { color: var(--gold-primary); }
+        .glow-gold { text-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+        .border-gold { border-color: var(--gold-primary); }
+        .bg-gold { background-color: var(--gold-primary); color: var(--dark-blue); }
+
+        /* ====================================================
+           Advanced 3D Interactive Text & Intro Animation
+        ==================================================== */
+        .hbd-3d-container {
+            perspective: 1500px;
+            transform-style: preserve-3d;
+            width: 100%;
+            z-index: 50;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .hbd-wrapper-height {
+            height: 160px;
+        }
+        @media (min-width: 768px) {
+            .hbd-wrapper-height { height: 240px; }
+        }
+
+        /* Intro Gift Animation Classes */
+        .gift-intro {
+            animation: dropInGift 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes dropInGift {
+            0% { transform: translateY(-100px) scale(0); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        .gift-pop-out {
+            animation: giftExplode 0.5s forwards ease-in;
+        }
+        @keyframes giftExplode {
+            0% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
+            40% { transform: scale(1.2) rotate(-10deg); opacity: 1; filter: drop-shadow(0 0 60px rgba(255,215,0,1)); }
+            100% { transform: scale(2.5) rotate(15deg); opacity: 0; filter: drop-shadow(0 0 100px rgba(255,215,0,0)); visibility: hidden; }
+        }
+
+        /* Text Pop In Animation */
+        .text-pop-in {
+            animation: textBounceIn 1.2s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes textBounceIn {
+            0% { transform: scale(0) translateZ(-200px); opacity: 0; }
+            100% { transform: scale(1) translateZ(0); opacity: 1; }
+        }
+
+        #hbd-3d-wrapper {
+            transform-style: preserve-3d;
+            will-change: transform;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .hbd-3d-text {
+            font-size: clamp(1.2rem, 5vw, 4.5rem); /* ปรับสัดส่วนให้ยืดหยุ่นพอดีกรอบ ไม่ล้นหน้าจอ */
+            font-weight: 900;
+            line-height: 1.1;
+            text-align: center;
+            transform-style: preserve-3d;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+        /* Character 3D Wave Animation */
+        .hbd-char {
+            display: inline-block;
+            color: #FFE800;
+            -webkit-text-stroke: 1px #B8860B;
+            text-shadow:
+                0 1px 0 #d19a00,
+                0 2px 0 #c28f00,
+                0 3px 0 #b38400,
+                0 4px 0 #a47900,
+                0 5px 0 #956e00,
+                0 6px 0 #866300,
+                0 7px 0 #775800,
+                0 12px 15px rgba(0, 0, 0, 0.9),
+                0 0 25px rgba(255, 215, 0, 0.7);
+            animation: wave3D 3.5s ease-in-out infinite;
+            animation-delay: calc(var(--i) * 0.12s);
+            transform-style: preserve-3d;
+        }
+
+        @keyframes wave3D {
+            0%, 100% { 
+                transform: translateZ(20px) translateY(0px) rotateX(0deg); 
+            }
+            50% { 
+                transform: translateZ(70px) translateY(-15px) rotateX(15deg); 
+                color: #FFFFFF;
+                text-shadow:
+                    0 1px 0 #d19a00, 0 2px 0 #c28f00, 0 3px 0 #b38400, 0 4px 0 #a47900, 
+                    0 5px 0 #956e00, 0 6px 0 #866300, 0 7px 0 #775800, 0 8px 0 #684d00,
+                    0 25px 25px rgba(0, 0, 0, 0.9),
+                    0 0 40px rgba(255, 215, 0, 0.9);
+            }
+        }
+
+        .hbd-crown {
+            font-size: 3rem;
+            color: #FFD700;
+            transform-style: preserve-3d;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.8)) drop-shadow(0 0 25px rgba(255,215,0,0.9));
+            animation: floatCrown3D 4s ease-in-out infinite;
+        }
+        @media (min-width: 768px) {
+            .hbd-crown { font-size: 4rem; }
+        }
+        @keyframes floatCrown3D {
+            0%, 100% { transform: translateZ(50px) translateY(0px) rotateY(-20deg) rotateX(10deg); }
+            50% { transform: translateZ(100px) translateY(-25px) rotateY(20deg) rotateX(-10deg) scale(1.15); }
+        }
+
+        /* 3D Flipping Photo Cards */
+        .img-upload-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 1.5rem;
+            cursor: pointer;
+            perspective: 1500px;
+            z-index: 10;
+            animation: floatFrame 6s ease-in-out infinite;
+            container-type: inline-size;
+        }
+        
+        .img-upload-box:nth-child(1) { animation-delay: 0s; }
+        .img-upload-box:nth-child(2) { animation-delay: -2s; }
+        .img-upload-box:nth-child(3) { animation-delay: -4s; }
+        .img-upload-box:nth-child(4) { animation-delay: -1s; }
+        .img-upload-box:nth-child(5) { animation-delay: -3s; }
+        .img-upload-box:nth-child(6) { animation-delay: -5s; }
+
+        @keyframes floatFrame {
+            0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-4deg); }
+            50% { transform: translateY(-15px) rotateX(-2deg) rotateY(4deg); }
+        }
+
+        .img-card-inner {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            border-radius: 1.5rem;
+        }
+
+        .img-upload-box:hover .img-card-inner {
+            transform: rotateY(180deg) scale(1.05);
+            box-shadow: 0 25px 50px rgba(255, 215, 0, 0.5);
+        }
+
+        .img-front, .img-back {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            background-color: var(--dark-blue);
+        }
+
+        .img-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #0A1128, #1a264a);
+            border-color: var(--gold-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .uploaded-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            z-index: 5;
+        }
+
+        /* Smart Auto-Scaling Text for Greetings on Mobile */
+        .greeting-icon {
+            font-size: 16cqi;
+            margin-bottom: 4cqi;
+            color: var(--gold-primary);
+        }
+        .greeting-title {
+            white-space: nowrap !important;
+            font-size: 9cqi;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 2cqi;
+            letter-spacing: 0.5px;
+        }
+        .greeting-desc {
+            white-space: nowrap !important;
+            font-size: 6cqi;
+            font-weight: 500;
+            color: var(--gold-primary);
+        }
+
+        /* Custom Button */
+        .btn-gold {
+            background: linear-gradient(135deg, #FFD700, #FDB931);
+            color: #040814;
+            font-weight: 800;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+        }
+        .btn-gold:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(255, 215, 0, 0.6);
+        }
+
+        /* View Transitions */
+        .view-section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .view-section.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ADL Animation Classes */
+        .adl-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        @media (max-width: 640px) {
+            .adl-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        .adl-item {
+            text-align: center;
+            padding: 1.25rem;
+            border-radius: 1.5rem;
+            background: rgba(255,255,255,0.03);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .adl-item i {
+            font-size: 2.8rem;
+            margin-bottom: 0.75rem;
+            color: #a0aec0;
+            transition: all 0.4s ease;
+        }
+        .adl-item.highlighted {
+            background: rgba(255, 215, 0, 0.12);
+            border-color: var(--gold-primary);
+            transform: scale(1.08);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+        }
+        .adl-item.highlighted i {
+            color: var(--gold-primary);
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9));
+        }
+        .claim-banner {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: none;
+        }
+        .claim-banner.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            display: flex;
+        }
+
+        /* OAD Flow Arrows */
+        .path-arrow-container {
+            height: 40px;
+            width: 10px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .path-arrow {
+            width: 2px;
+            height: 0px;
+            background: var(--gold-primary);
+            position: relative;
+            transition: height 0.8s ease-in-out;
+        }
+        .path-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -4px;
+            border-width: 5px 5px 0;
+            border-style: solid;
+            border-color: var(--gold-primary) transparent transparent transparent;
+            opacity: 0;
+            transition: opacity 0.3s ease-in;
+        }
+        .path-arrow.grow {
+            height: 40px;
+        }
+        .path-arrow.grow::after {
+            opacity: 1;
+            transition-delay: 0.8s;
+        }
+
+        /* OAD Animation Classes */
+        .oad-step {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .oad-step.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .btn-replay {
+            background: rgba(255, 215, 0, 0.08);
+            color: var(--gold-primary);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-replay:hover {
+            background: var(--gold-primary);
+            color: var(--dark-blue);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        /* Smart Vertical Scroll Classes */
+        .health-step {
+            scroll-margin-top: 140px;
+            transition: opacity 0.6s, transform 0.6s;
+            opacity: 0.2;
+            transform: translateY(30px);
+        }
+        .health-step.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Metallic Gold Gradient & Glow Definition -->
+    <svg style="width:0; height:0; position:absolute;">
+        <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF9D0" />
+                <stop offset="50%" stop-color="#FFD700" />
+                <stop offset="100%" stop-color="#B8860B" />
+            </linearGradient>
+            <filter id="glow">
+                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- 3D Background Canvas (Three.js) -->
+    <div id="canvas-container"></div>
+
+    <!-- Main Content Wrapper -->
+    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+        
+        <!-- ==========================================
+             SECTION 1 & 2: HBD & Projects (HOME VIEW)
+             ========================================== -->
+        <div id="view-home" class="view-section active w-full max-w-5xl my-auto">
+            
+            <div class="glass-panel p-6 md:p-12 mb-8 text-center mt-6">
+                
+                <!-- Advanced Interactive 3D HBD Engine & Surprise Gift Animation -->
+                <div class="hbd-3d-container relative hbd-wrapper-height flex items-center justify-center">
+                    
+                    <!-- 1. INTRO GIFT BOX -->
+                    <div id="gift-intro-container" class="absolute z-50 flex flex-col items-center justify-center gift-intro cursor-pointer" onclick="forcePopGift()">
+                        <i class="fas fa-gift text-7xl md:text-[8rem] text-gold drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse hover:scale-110 transition-transform"></i>
+                        <p class="text-gold text-[10px] md:text-sm tracking-widest mt-6 font-bold animate-bounce uppercase border border-gold/50 rounded-full px-4 py-1.5 bg-black/40 backdrop-blur-sm">Click to open</p>
+                    </div>
+
+                    <!-- 2. HBD TEXT WRAPPER (Pops out after gift opens) -->
+                    <div id="hbd-anim-container" class="absolute w-full flex flex-col items-center opacity-0 scale-0 z-40">
+                        <div id="hbd-3d-wrapper">
+                            <div class="mb-2">
+                                <i class="fas fa-crown hbd-crown"></i>
+                            </div>
+                            <h1 class="hbd-3d-text uppercase tracking-wider flex justify-center items-center">
+                                <span class="hbd-char" style="--i:1">H</span>
+                                <span class="hbd-char" style="--i:2">A</span>
+                                <span class="hbd-char" style="--i:3">P</span>
+                                <span class="hbd-char" style="--i:4">P</span>
+                                <span class="hbd-char" style="--i:5">Y</span>
+                                <span class="inline-block" style="width: clamp(6px, 2vw, 24px);"></span>
+                                <span class="hbd-char" style="--i:6">B</span>
+                                <span class="hbd-char" style="--i:7">I</span>
+                                <span class="hbd-char" style="--i:8">R</span>
+                                <span class="hbd-char" style="--i:9">T</span>
+                                <span class="hbd-char" style="--i:10">H</span>
+                                <span class="hbd-char" style="--i:11">D</span>
+                                <span class="hbd-char" style="--i:12">A</span>
+                                <span class="hbd-char" style="--i:13">Y</span>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spacer to allow 3D Cake backdrop placement -->
+                <div class="h-6 md:h-12 w-full"></div>
+
+                <!-- 3D FLIPPING PHOTO CARDS -->
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-4 relative z-20">
+                    
+                    <!-- Card 1 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img1', 'ph1')">
+                                <div id="ph1" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 1</p>
+                                </div>
+                                <img id="img1" src="./1776492319624.jpg" class="uploaded-img" alt="Gallery 1" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-gift greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">สุดยอดผู้นำ</h3>
+                                <p class="greeting-desc">ขอให้สุขภาพแข็งแรง</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img2', 'ph2')">
+                                <div id="ph2" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 2</p>
+                                </div>
+                                <img id="img2" src="./480812909_122389057580000363_2603868286064144414_n.jpg" class="uploaded-img" alt="Gallery 2" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-gem greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">ความสุขเปี่ยมล้น</h3>
+                                <p class="greeting-desc">สมหวังในทุกสิ่งที่ปรารถนา</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img3', 'ph3')">
+                                <div id="ph3" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 3</p>
+                                </div>
+                                <img id="img3" src="./484048541_122398436378000363_5276464566412859179_n.jpg" class="uploaded-img" alt="Gallery 3" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-star greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">ความสำเร็จ</h3>
+                                <p class="greeting-desc">ก้าวหน้าและมั่งคั่งตลอดไป</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img4', 'ph4')">
+                                <div id="ph4" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 4</p>
+                                </div>
+                                <img id="img4" src="./484159592_122398897958000363_5345064074797372717_n.jpg" class="uploaded-img" alt="Gallery 4" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-coins greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">ร่ำรวยเงินทอง</h3>
+                                <p class="greeting-desc">โชคดีและมีชัยในทุกก้าวเดิน</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img5', 'ph5')">
+                                <div id="ph5" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 5</p>
+                                </div>
+                                <img id="img5" src="./686550033_122549311400000363_7144955763970945235_n.jpg" class="uploaded-img" alt="Gallery 5" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-heart greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">เปี่ยมด้วยความรัก</h3>
+                                <p class="greeting-desc">แวดล้อมด้วยคนที่รักและหวังดี</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="img-upload-box group">
+                        <div class="img-card-inner">
+                            <label class="img-front cursor-pointer flex flex-col items-center justify-center">
+                                <input type="file" class="file-input hidden" accept="image/*" onchange="previewImage(this, 'img6', 'ph6')">
+                                <div id="ph6" class="text-center z-0 transition-transform group-hover:scale-110" style="display: none;">
+                                    <i class="fas fa-plus-circle text-4xl mb-2 text-gold opacity-60"></i>
+                                    <p class="text-xs md:text-sm font-semibold text-gold opacity-80 mt-2">ใส่รูปภาพที่ 6</p>
+                                </div>
+                                <img id="img6" src="./719585795_122560317728000363_1554361176373740121_n.jpg" class="uploaded-img" alt="Gallery 6" style="display: block;">
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
+                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> Hover to Flip</span>
+                                </div>
+                            </label>
+                            <div class="img-back pointer-events-none">
+                                <i class="fas fa-crown greeting-icon animate-bounce"></i>
+                                <h3 class="greeting-title drop-shadow-md">ชีวิตสมบูรณ์แบบ</h3>
+                                <p class="greeting-desc">เติมเต็มทุกความฝันและเป้าหมาย</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="text-center mb-16 relative z-20">
+                <h2 class="text-2xl md:text-3xl font-bold mb-8 drop-shadow-sm">ขอมอบ 2 โครงการพิเศษเป็นของขวัญ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="glass-panel p-8 cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(255,215,0,0.15)] hover:border-gold group" onclick="switchView('view-health')">
+                        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-600 to-teal-400 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-heartbeat text-5xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-gold mb-3 group-hover:glow-gold transition-all">กองทุนสุขภาพ</h3>
+                        <p class="text-gray-300">ความคุ้มครองสุขภาพเหนือระดับ เลื่อนอ่านได้ทันที</p>
+                        <button class="mt-8 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-gray-900 transition-all font-semibold shadow-lg">เปิดดูรายละเอียด <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                    
+                    <div class="glass-panel p-8 cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(255,215,0,0.15)] hover:border-gold group" onclick="switchView('view-legacy')">
+                        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-shield-alt text-5xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-gold mb-3 group-hover:glow-gold transition-all">กองทุนเงินสำรอง/มรดก</h3>
+                        <p class="text-gray-300">ส่งต่อความมั่งคั่งและรับมือกับทุกสถานการณ์ฉุกเฉิน</p>
+                        <button class="mt-8 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-gray-900 transition-all font-semibold shadow-lg">เปิดดูรายละเอียด <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             SECTION 3: HEALTH FUND VIEW (SCROLLABLE)
+             ========================================== -->
+        <div id="view-health" class="view-section w-full max-w-5xl mt-10 mb-20">
+            <div class="flex justify-between items-center mb-6">
+                <button onclick="switchView('view-home')" class="text-gray-300 hover:text-gold font-semibold transition flex items-center bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:border-gold/30">
+                    <i class="fas fa-arrow-left mr-2"></i> ย้อนกลับหน้าแรก
+                </button>
+            </div>
+            
+            <div class="glass-panel p-6 md:p-12 relative flex flex-col items-center">
+                
+                <!-- HEADER -->
+                <div class="w-full text-center mb-16">
+                    <i class="fas fa-heartbeat text-5xl text-gold mb-4 drop-shadow-lg animate-pulse"></i>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gold drop-shadow-sm">กองทุนสุขภาพ</h2>
+                    <p class="text-xl mt-2 text-gray-200 font-light">โครงการพิเศษเพื่อสวัสดิการดูแลรักษาระดับพรีเมียม</p>
+                </div>
+
+                <!-- SCROLLABLE CONTENT AREA -->
+                <div class="w-full max-w-4xl flex flex-col space-y-24 pb-10" id="health-scroll-container">
+                    
+                    <!-- STEP 1 -->
+                    <div id="health-step-1" class="health-step">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 p-6 md:p-8 rounded-3xl border border-white/10">
+                            <div class="order-2 lg:order-1">
+                                <span class="bg-blue-500/25 text-blue-300 border border-blue-500/40 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">ความจำเป็นสูงสุด</span>
+                                <h3 class="text-3xl md:text-4xl font-extrabold text-white mt-4 mb-4 leading-tight drop-shadow-md">คุ้มครองดูแลพยาบาล<br><span class="text-gold glow-gold">"ตลอดชีวิต"</span></h3>
+                                <p class="text-gray-200 text-base leading-relaxed drop-shadow-sm font-light">
+                                    สุขภาพที่ดีคือทรัพย์สินที่ล้ำค่าและไม่แน่นอน การสร้างระบบสวัสดิการการคุ้มครองระดับพรีเมียมคอยพยาบาลดูแลอย่างครอบคลุม <span class="text-gold font-bold">คือเรื่องที่ต้องเตรียมตัวตั้งแต่วันนี้</span> เพื่อขจัดความกังวลในยามชราภาพให้สิ้นเชิง
+                                </p>
+                            </div>
+                            <!-- Graphic 3D Shield -->
+                            <div class="order-1 lg:order-2 flex justify-center">
+                                <div class="relative w-full max-w-[280px] aspect-square bg-blue-950/30 rounded-full border-4 border-white/5 p-4 flex items-center justify-center shadow-[0_0_40px_rgba(37,99,235,0.2)]">
+                                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                                        <path d="M 10,50 L 90,50 M 50,10 L 50,90" stroke="rgba(255,215,0,0.1)" stroke-width="0.5"/>
+                                        <circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,215,0,0.05)" stroke-width="1"/>
+                                        <circle cx="50" cy="50" r="25" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.8">
+                                            <animate attributeName="r" values="10;45" dur="3s" repeatCount="indefinite" />
+                                            <animate attributeName="opacity" values="1;0" dur="3s" repeatCount="indefinite" />
+                                        </circle>
+                                        <path d="M 50,22 C 65,22 72,28 72,38 C 72,55 50,75 50,78 C 50,75 28,55 28,38 C 28,28 35,22 50,22 Z" fill="url(#goldGradient)" stroke="#FFD700" stroke-width="1.5" filter="url(#glow)"/>
+                                        <path d="M 38,45 L 45,45 L 48,32 L 51,55 L 54,41 L 56,45 L 62,45" fill="none" stroke="#040814" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2 -->
+                    <div id="health-step-2" class="health-step">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 p-6 md:p-8 rounded-3xl border border-white/10">
+                            <div class="order-2 lg:order-1">
+                                <span class="bg-red-500/25 text-red-300 border border-red-500/40 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">มูลค่าภาระจ่ายทิ้ง</span>
+                                <h3 class="text-3xl md:text-4xl font-extrabold text-white mt-4 mb-4 leading-tight drop-shadow-md">ภาระค่ารักษาพยาบาลสะสม<br><span class="text-red-400">"3 - 5 ล้านบาท"</span></h3>
+                                <p class="text-gray-200 text-base leading-relaxed drop-shadow-sm font-light">
+                                    หากคุณต้องสะสมเงินเบี้ยเพื่อจ่ายประกันสุขภาพเฉลี่ยไปตลอดรอดฝั่ง ยอดเงินเบี้ยจ่ายทิ้งจะสะสมพุ่งสูงเกินความคาดหมาย นำไปสู่ความกังวลด้านสภาพคล่องทางการเงินส่วนตัว
+                                </p>
+                            </div>
+                            <!-- Graphic Cost Accumulator -->
+                            <div class="order-1 lg:order-2 flex justify-center">
+                                <div class="relative w-full max-w-[280px] aspect-square bg-red-950/20 rounded-2xl border border-red-500/20 p-6 flex flex-col items-center justify-center shadow-inner">
+                                    <div class="text-red-400 text-3xl font-extrabold tracking-wider mb-2" id="cost-counter">฿0</div>
+                                    <span class="text-xs text-gray-400 uppercase tracking-widest font-bold text-center">เบี้ยรวมสะสมถึงช่วงสูงอายุ</span>
+                                    <div class="flex items-end space-x-3 w-4/5 h-24 mt-6">
+                                        <div class="bg-gray-700 w-full rounded-t-md h-[25%] shadow-inner"></div>
+                                        <div class="bg-gray-700 w-full rounded-t-md h-[55%] shadow-inner"></div>
+                                        <div id="cost-bar-final" class="bg-gradient-to-t from-red-600 to-red-400 shadow-[0_0_20px_rgba(239,68,68,0.6)] w-full rounded-t-md transition-all duration-1000 h-[0%]"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 -->
+                    <div id="health-step-3" class="health-step">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 p-6 md:p-8 rounded-3xl border border-white/10">
+                            <div class="order-2 lg:order-1">
+                                <span class="bg-gold/25 text-gold border border-gold/40 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">กลไกอัจฉริยะ</span>
+                                <h3 class="text-3xl md:text-4xl font-extrabold text-white mt-4 mb-4 leading-tight drop-shadow-md">ใช้เงินสถาบันการเงินแทน<br><span class="text-gold glow-gold">"ด้วยแนวคิด OPM"</span></h3>
+                                <p class="text-gray-200 text-base leading-relaxed drop-shadow-sm font-light">
+                                    แทนที่จะค่อยๆ เสียสละเงินตนเองจ่ายเบี้ยสะสมอย่างสิ้นเปลือง ให้เปลี่ยนแนวคิดมาใช้เงินสถาบันการเงินที่ถูกขยายมูลค่าแบบจัดเต็ม คุ้มครองพยาบาลแทนเราฟรีๆ ตลอดชีวิต
+                                </p>
+                            </div>
+                            <!-- Leverage orbital ring -->
+                            <div class="order-1 lg:order-2 flex justify-center">
+                                <div class="relative w-full max-w-[280px] aspect-square bg-yellow-950/10 rounded-full border-2 border-gold/20 p-4 flex items-center justify-center shadow-[0_0_30px_rgba(255,215,0,0.1)]">
+                                    <svg class="w-full h-full animate-[spin_20s_linear_infinite]" viewBox="0 0 100 100">
+                                        <circle cx="50" cy="50" r="32" fill="none" stroke="#FFD700" stroke-width="1.5" stroke-dasharray="5 3"/>
+                                        <circle cx="50" cy="50" r="18" fill="none" stroke="#FFD700" stroke-width="2"/>
+                                        <circle cx="50" cy="18" r="6" fill="#040814" stroke="#FFD700" stroke-width="2"/>
+                                        <circle cx="78" cy="64" r="6" fill="#040814" stroke="#FFD700" stroke-width="2"/>
+                                        <circle cx="22" cy="64" r="6" fill="#040814" stroke="#FFD700" stroke-width="2"/>
+                                        <path d="M 50,38 L 50,62 M 38,50 L 62,50" stroke="#FFD700" stroke-width="2"/>
+                                    </svg>
+                                    <span class="absolute font-black text-lg text-gold tracking-widest bg-[#040814] px-3 py-1.5 rounded-xl border border-gold shadow-[0_0_15px_rgba(255,215,0,0.4)]">OPM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4 -->
+                    <div id="health-step-4" class="health-step">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white/5 p-6 md:p-8 rounded-3xl border border-white/10">
+                            <div class="order-2 lg:order-1">
+                                <span class="bg-green-500/25 text-green-300 border border-green-500/40 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">ผลลัพธ์มหาศาล</span>
+                                <h3 class="text-3xl md:text-4xl font-extrabold text-white mt-4 mb-6 leading-tight drop-shadow-md">ปลดภาระอย่างถาวร</h3>
+                                <ul class="space-y-4">
+                                    <li class="flex items-center text-base md:text-lg text-gray-100 bg-white/5 p-3 rounded-xl border border-white/5">
+                                        <i class="fas fa-check-circle text-green-400 mr-3 text-2xl drop-shadow-md"></i>
+                                        <span>ได้สวัสดิการประกันสุขภาพ <strong class="text-gold font-extrabold text-xl">ฟรี</strong></span>
+                                    </li>
+                                    <li class="flex items-center text-base md:text-lg text-gray-100 bg-white/5 p-3 rounded-xl border border-white/5">
+                                        <i class="fas fa-check-circle text-green-400 mr-3 text-2xl drop-shadow-md"></i>
+                                        <span>สร้าง <strong class="text-gold font-bold">เงินสำรองฉุกเฉิน</strong> เพิ่มเติม</span>
+                                    </li>
+                                    <li class="flex items-center text-base md:text-lg text-gray-100 bg-white/5 p-3 rounded-xl border border-white/5">
+                                        <i class="fas fa-check-circle text-green-400 mr-3 text-2xl drop-shadow-md"></i>
+                                        <span>กองทุน <strong class="text-gold font-bold">ปลอดค่าใช้จ่าย ปลอดภาษี</strong></span>
+                                    </li>
+                                    <li class="flex items-center text-base md:text-lg text-gray-100 bg-white/5 p-3 rounded-xl border border-white/5">
+                                        <i class="fas fa-check-circle text-green-400 mr-3 text-2xl drop-shadow-md"></i>
+                                        <span><strong class="text-red-400 font-bold">ไร้กังวลเรื่องเบี้ย</strong> ตลอดชีพ</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Premium Video Player Simulation -->
+                            <div class="order-1 lg:order-2 flex justify-center">
+                                <div class="relative w-full max-w-[340px] aspect-video bg-black/90 rounded-2xl border-2 border-gold/40 overflow-hidden shadow-[0_15px_40px_rgba(255,215,0,0.2)] flex flex-col justify-between group">
+                                    <canvas id="video-canvas" class="absolute inset-0 w-full h-full object-cover opacity-70"></canvas>
+                                    <div class="relative z-10 p-3 bg-gradient-to-b from-black/95 to-transparent flex justify-between items-center">
+                                        <span class="text-xs font-bold text-gold tracking-widest uppercase"><i class="fas fa-video mr-1"></i> วิดีโอนำเสนอโครงการ</span>
+                                        <span id="live-badge" class="text-[10px] bg-red-600 px-2 py-0.5 rounded text-white font-bold animate-pulse">LIVE HD</span>
+                                    </div>
+                                    <button id="video-play-btn" onclick="toggleVideoSimulation()" class="relative z-10 w-16 h-16 rounded-full bg-gold hover:scale-110 text-dark-blue flex items-center justify-center shadow-[0_0_20px_rgba(255,215,0,0.6)] mx-auto transition-all duration-300">
+                                        <i id="video-icon" class="fas fa-play text-2xl ml-1"></i>
+                                    </button>
+                                    <div class="relative z-10 p-3 bg-gradient-to-t from-black/95 to-transparent flex flex-col space-y-1.5">
+                                        <div class="w-full bg-gray-700 h-1.5 rounded overflow-hidden">
+                                            <div id="video-progress" class="bg-gold h-full w-0 transition-all duration-100"></div>
+                                        </div>
+                                        <div class="flex justify-between items-center text-[10px] text-gray-300 font-mono">
+                                            <span id="video-time">0:00 / 0:15</span>
+                                            <span>3D Financial Presenter</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             SECTION 4: LEGACY / EMERGENCY FUND VIEW
+             ========================================== -->
+        <div id="view-legacy" class="view-section w-full max-w-5xl mt-10 mb-20">
+            <button onclick="switchView('view-home')" class="mb-6 text-gray-300 hover:text-gold font-semibold transition flex items-center bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:border-gold/30">
+                <i class="fas fa-arrow-left mr-2"></i> ย้อนกลับ
+            </button>
+
+            <div class="glass-panel p-8 md:p-12">
+                <div class="text-center mb-10">
+                    <i class="fas fa-shield-alt text-5xl text-gold mb-4 drop-shadow-lg animate-pulse"></i>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gold drop-shadow-sm">กองทุนเงินสำรองฉุกเฉิน / มรดก</h2>
+                    <p class="text-xl mt-2 text-gray-200 font-light">เปลี่ยนเงินก้อนเดิม เพิ่มมูลค่าเป็นกองมรดก พร้อมรับมือ 3 เหตุฉุกเฉิน</p>
+                </div>
+
+                <!-- Emergency 1 -->
+                <div class="mb-8 p-6 bg-red-900/25 border border-red-500/40 rounded-3xl">
+                    <h3 class="text-2xl font-bold text-red-400 mb-2"><i class="fas fa-exclamation-triangle mr-2"></i>ฉุกเฉิน 1: โรคร้ายระยะสุดท้าย</h3>
+                    <p class="text-gray-200">หากแพทย์วินิจฉัยว่าไม่สามารถอยู่ได้เกิน 12 เดือน <span class="text-gold font-semibold">รับเงินก้อนก่อนล่วงหน้า</span> เพื่อใช้ดูแลตัวเองหรือจัดการสิ่งที่ค้างคา</p>
+                </div>
+
+                <!-- Emergency 2: ADLs Animation -->
+                <div class="mb-8 p-6 bg-blue-900/25 border border-blue-500/40 rounded-3xl relative overflow-hidden">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-400 mb-2"><i class="fas fa-wheelchair mr-2"></i>ฉุกเฉิน 2: ทุพพลภาพ (เงื่อนไข 6 ADLs)</h3>
+                            <p class="text-gray-200">หากไม่สามารถช่วยเหลือตัวเองในการปฏิบัติกิจวัตรประจำวัน</p>
+                        </div>
+                        <button onclick="runADLAnimationSequence()" class="btn-replay px-5 py-2.5 rounded-full text-sm font-semibold mt-4 md:mt-0 flex items-center shadow-[0_0_10px_rgba(255,215,0,0.2)]">
+                            <i class="fas fa-play-circle mr-2 text-lg"></i> เล่นแอนิเมชันอีกครั้ง
+                        </button>
+                    </div>
+                    
+                    <div class="adl-grid mb-6" id="adl-container">
+                        <div class="adl-item" id="adl-1">
+                            <i class="fas fa-bed"></i><br><span class="text-sm font-medium">เคลื่อนย้าย<br>(Mobility)</span>
+                        </div>
+                        <div class="adl-item" id="adl-2">
+                            <i class="fas fa-walking"></i><br><span class="text-sm font-medium">เดินหรือเคลื่อนที่<br>(Walking)</span>
+                        </div>
+                        <div class="adl-item" id="adl-3">
+                            <i class="fas fa-tshirt"></i><br><span class="text-sm font-medium">แต่งกาย<br>(Dressing)</span>
+                        </div>
+                        <div class="adl-item" id="adl-4">
+                            <i class="fas fa-shower"></i><br><span class="text-sm font-medium">อาบน้ำชำระร่างกาย<br>(Bathing)</span>
+                        </div>
+                        <div class="adl-item" id="adl-5">
+                            <i class="fas fa-utensils"></i><br><span class="text-sm font-medium">รับประทานอาหาร<br>(Eating)</span>
+                        </div>
+                        <div class="adl-item" id="adl-6">
+                            <i class="fas fa-toilet"></i><br><span class="text-sm font-medium">ขับถ่าย<br>(Toileting)</span>
+                        </div>
+                    </div>
+
+                    <!-- Animation Logic Result Banner -->
+                    <div id="claim-banner" class="claim-banner w-full bg-gradient-to-r from-yellow-600 to-yellow-50 text-gray-900 p-4 rounded-xl items-center justify-center font-bold text-lg md:text-xl shadow-[0_0_30px_rgba(255,215,0,0.4)] border-2 border-white">
+                        <div class="flex items-center flex-wrap justify-center text-center">
+                            <div class="flex -space-x-2 mr-4" id="claim-icons">
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-30"><i class="fas fa-tshirt"></i></div>
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-20"><i class="fas fa-shower"></i></div>
+                                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-yellow-600 shadow-md z-10"><i class="fas fa-utensils"></i></div>
+                            </div>
+                            <span>เข้าเงื่อนไข 3 ใน 6 อย่าง</span>
+                            <i class="fas fa-plus mx-3 text-white drop-shadow-md"></i>
+                            <span id="calendar-anim" class="bg-white text-yellow-600 px-3 py-1 rounded-lg shadow-inner mx-2 transform scale-0 transition-transform duration-500 delay-300"><i class="far fa-calendar-alt mr-1"></i> 180 วัน</span>
+                            <i class="fas fa-equals mx-3 text-white drop-shadow-md"></i>
+                            <span class="text-white drop-shadow-lg text-2xl animate-pulse">เข้าเงื่อนไขการเคลม!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency 3: Old Age (OAD) -->
+                <div class="p-6 bg-green-900/25 border border-green-500/40 rounded-3xl text-center">
+                    <h3 class="text-2xl font-bold text-green-400 mb-6"><i class="fas fa-blind mr-2"></i>ฉุกเฉิน 3: ชราภาพ (OAD)</h3>
+                    <p class="text-gray-200 mb-8 font-light">ตัวอย่างการจ่ายผลประโยชน์ สำหรับอายุ 71 ปีขึ้นไป</p>
+                    
+                    <!-- Infographic Flow -->
+                    <div class="flex flex-col items-center max-w-2xl mx-auto">
+                        
+                        <div id="oad-step-1" class="oad-step bg-white text-gray-800 rounded-2xl p-4 w-full md:w-3/4 flex items-center shadow-xl border border-gray-200">
+                            <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mr-4 border-2 border-gold flex-shrink-0">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?style=circle&top=shortHair&facialHair=blank&hairColor=gray" alt="Avatar" class="w-14 h-14 rounded-full">
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-extrabold text-lg">คุณบี (อายุ 75 ปี)</h4>
+                                <p class="text-sm text-gray-600 font-semibold">ซื้อทุนประกันภัย <strong class="text-gold text-lg">1,000,000 บาท</strong></p>
+                            </div>
+                        </div>
+
+                        <div class="path-arrow-container">
+                            <div id="oad-arrow-1" class="path-arrow"></div>
+                        </div>
+
+                        <div id="oad-step-2" class="oad-step bg-white text-gray-800 rounded-2xl p-4 w-full shadow-xl border border-gray-200 text-left flex items-start">
+                            <div class="text-gold text-3xl mr-4 mt-1"><i class="fas fa-file-medical-alt animate-pulse"></i></div>
+                            <p class="text-sm md:text-base text-gray-700 leading-relaxed font-semibold">
+                                ล้มป่วยด้วยโรคชรา ไม่สามารถอาบน้ำ แต่งตัว และรับประทานอาหารเองได้ <strong class="text-red-500">(เข้าเกณฑ์ 3 ใน 6 ADLs)</strong> ต่อเนื่องเกิน 180 วัน มีใบรับรองความพิการจากโรงพยาบาลรัฐ
+                            </p>
+                        </div>
+
+                        <div class="path-arrow-container">
+                            <div id="oad-arrow-2" class="path-arrow"></div>
+                        </div>
+
+                        <div id="oad-step-3" class="oad-step bg-gradient-to-r from-yellow-100 to-yellow-50 text-gray-800 rounded-2xl p-6 w-full md:w-3/4 shadow-2xl border-2 border-gold text-center relative overflow-hidden">
+                            <i class="fas fa-certificate absolute -right-4 -bottom-4 text-7xl text-yellow-200 opacity-50"></i>
+                            <h2 class="text-5xl font-extrabold text-yellow-600 mb-2 drop-shadow-sm">105%</h2>
+                            <p class="text-lg text-gray-700 mb-2 font-bold">105% x 1,000,000 = รับ <strong class="text-2xl text-yellow-600">1,050,000 บาท</strong></p>
+                            <p class="text-sm text-gray-500 font-semibold">(เงินก้อนเพื่อสนับสนุนค่าใช้จ่ายผู้ดูแลระยะยาว)</p>
+                            <div class="mt-4 inline-block bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-bold shadow-inner border border-green-200">
+                                สัญญาเพิ่มเติมสิ้นสุดลงทันที
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript for Interactions and 3D Animation -->
+    <script>
+        // Global Three.js variables
+        let targetZ = 30;
+        let targetY = 0;
+        let targetRotY = 0;
+        let globalSpeedMultiplier = 1;
+        let currentView = 'home';
+        let birthdayScale = 1.0; 
+
+        // Intro Animation Handlers
+        let giftPopTimeout, textPopTimeout;
+
+        function playHBDAnimation() {
+            clearTimeout(giftPopTimeout);
+            clearTimeout(textPopTimeout);
+
+            const gift = document.getElementById('gift-intro-container');
+            const textContainer = document.getElementById('hbd-anim-container');
+
+            if(gift && textContainer) {
+                // Reset Animations
+                gift.classList.remove('gift-pop-out');
+                gift.style.opacity = '1';
+                gift.style.visibility = 'visible';
+                
+                textContainer.classList.remove('text-pop-in');
+                textContainer.style.opacity = '0';
+                textContainer.style.transform = 'scale(0)';
+
+                // Auto Pop in 2.5 seconds if user doesn't click
+                giftPopTimeout = setTimeout(forcePopGift, 2500); 
+            }
+        }
+
+        function forcePopGift() {
+            clearTimeout(giftPopTimeout);
+            clearTimeout(textPopTimeout);
+            
+            const gift = document.getElementById('gift-intro-container');
+            const textContainer = document.getElementById('hbd-anim-container');
+
+            if (gift && !gift.classList.contains('gift-pop-out')) {
+                gift.classList.add('gift-pop-out');
+                
+                // Show HBD text after gift bursts
+                textPopTimeout = setTimeout(() => {
+                    if(textContainer) {
+                        textContainer.classList.add('text-pop-in');
+                    }
+                }, 300);
+            }
+        }
+
+        // View Navigation
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+                el.style.display = 'none';
+            });
+            
+            const target = document.getElementById(viewId);
+            target.style.display = 'block';
+            
+            // Background Adjustments & View Identifiers
+            if (viewId === 'view-home') {
+                currentView = 'home';
+                targetZ = 30; targetY = 0; targetRotY = 0; globalSpeedMultiplier = 1.0;
+                stopVideoSimulation();
+                if(healthObserver) healthObserver.disconnect();
+                
+                // Replay Gift animation on return home
+                playHBDAnimation();
+                
+            } else if (viewId === 'view-health') {
+                currentView = 'health';
+                targetZ = 18; targetY = 6; targetRotY = Math.PI / 4; globalSpeedMultiplier = 1.6;
+                initHealthScrollObserver();
+            } else if (viewId === 'view-legacy') {
+                currentView = 'legacy';
+                targetZ = 24; targetY = -4; targetRotY = -Math.PI / 4; globalSpeedMultiplier = 0.6;
+                stopVideoSimulation();
+                if(healthObserver) healthObserver.disconnect();
+                
+                setTimeout(() => {
+                    runADLAnimationSequence();
+                    playOADAnimationSequence();
+                }, 800);
+            }
+            
+            setTimeout(() => {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 50);
+        }
+
+        // Image Preview logic with Placeholders
+        function previewImage(input, imgId, placeholderId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById(imgId);
+                    imgElement.src = e.target.result;
+                    imgElement.style.display = 'block';
+                    
+                    if (placeholderId) {
+                        const phElement = document.getElementById(placeholderId);
+                        if (phElement) phElement.style.display = 'none';
+                    }
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // --- 3. Smart Scroll Intersection Observer Logic ---
+        let healthObserver;
+        let costAnimated = false;
+        let costInterval;
+
+        function initHealthScrollObserver() {
+            costAnimated = false;
+            if(healthObserver) healthObserver.disconnect();
+            
+            const options = {
+                root: null,
+                rootMargin: '-20% 0px -40% 0px',
+                threshold: 0
+            };
+
+            healthObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        const stepNum = parseInt(entry.target.id.replace('health-step-', ''));
+                        triggerHealthStepAnimation(stepNum);
+                    }
+                });
+            }, options);
+
+            document.querySelectorAll('.health-step').forEach(step => {
+                healthObserver.observe(step);
+            });
+        }
+
+        function triggerHealthStepAnimation(step) {
+            if (step === 2 && !costAnimated) {
+                animateCostCounter();
+                costAnimated = true;
+            }
+            
+            if (step === 4) {
+                initVideoCanvas();
+            } else {
+                stopVideoSimulation();
+            }
+        }
+
+        function animateCostCounter() {
+            const counter = document.getElementById('cost-counter');
+            const costBar = document.getElementById('cost-bar-final');
+            let val = 0;
+            const targetVal = 5000000;
+            
+            costBar.style.height = '0%';
+            
+            clearInterval(costInterval);
+            costInterval = setInterval(() => {
+                val += 125000;
+                if (val >= targetVal) {
+                    val = targetVal;
+                    clearInterval(costInterval);
+                }
+                counter.innerText = `฿${val.toLocaleString()}`;
+            }, 25);
+
+            setTimeout(() => {
+                costBar.style.height = '100%';
+            }, 100);
+        }
+
+        // --- Premium Video Player Simulation (Step 4) ---
+        let isPlayingVideo = false;
+        let videoAnimFrame;
+        let videoProgress = 0;
+        let videoCanvas, ctx;
+
+        function initVideoCanvas() {
+            if(videoCanvas && ctx) return;
+            videoCanvas = document.getElementById('video-canvas');
+            if(!videoCanvas) return;
+            ctx = videoCanvas.getContext('2d');
+            videoCanvas.width = videoCanvas.offsetWidth;
+            videoCanvas.height = videoCanvas.offsetHeight;
+            drawPoster();
+        }
+
+        function drawPoster() {
+            if (!ctx) return;
+            ctx.fillStyle = '#020614';
+            ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.15)';
+            ctx.lineWidth = 1;
+            for(let i=0; i<videoCanvas.width; i+=25) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, videoCanvas.height); ctx.stroke();
+            }
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.05)';
+            ctx.beginPath(); ctx.arc(videoCanvas.width/2, videoCanvas.height/2, 45, 0, Math.PI*2); ctx.fill();
+        }
+
+        function toggleVideoSimulation() {
+            const playBtnIcon = document.getElementById('video-icon');
+            if (isPlayingVideo) {
+                stopVideoSimulation();
+            } else {
+                isPlayingVideo = true;
+                playBtnIcon.classList.remove('fa-play');
+                playBtnIcon.classList.add('fa-pause');
+                animateVideo();
+            }
+        }
+
+        function stopVideoSimulation() {
+            isPlayingVideo = false;
+            cancelAnimationFrame(videoAnimFrame);
+            const playBtnIcon = document.getElementById('video-icon');
+            if (playBtnIcon) {
+                playBtnIcon.classList.remove('fa-pause');
+                playBtnIcon.classList.add('fa-play');
+            }
+        }
+
+        function animateVideo() {
+            if (!isPlayingVideo) return;
+            
+            videoProgress += 0.35;
+            if (videoProgress >= 100) videoProgress = 0;
+            
+            const progressEl = document.getElementById('video-progress');
+            const timeEl = document.getElementById('video-time');
+            if (progressEl) progressEl.style.width = `${videoProgress}%`;
+            
+            const sec = Math.floor((videoProgress / 100) * 15);
+            if (timeEl) timeEl.innerText = `0:${sec < 10 ? '0' + sec : sec} / 0:15`;
+
+            ctx.fillStyle = '#020510';
+            ctx.fillRect(0, 0, videoCanvas.width, videoCanvas.height);
+            
+            const time = Date.now() * 0.005;
+            
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.5)';
+            ctx.lineWidth = 3;
+            for(let x=0; x<videoCanvas.width; x++) {
+                const y = videoCanvas.height/2 + Math.sin(x*0.015 + time) * 20 * Math.sin(time*0.15);
+                if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0, 180, 216, 0.4)';
+            ctx.lineWidth = 1.5;
+            for(let x=0; x<videoCanvas.width; x++) {
+                const y = videoCanvas.height/2 + Math.cos(x*0.03 + time*1.1) * 15;
+                if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            ctx.save();
+            ctx.translate(videoCanvas.width/2, videoCanvas.height/2);
+            ctx.rotate(time * 0.15);
+            ctx.strokeStyle = '#FFD700';
+            ctx.lineWidth = 2.5;
+            ctx.strokeRect(-12, -12, 24, 24);
+            ctx.restore();
+
+            videoAnimFrame = requestAnimationFrame(animateVideo);
+        }
+
+        // --- 5. ADL Automatic Animation Sequence ---
+        let adlAnimTimeout = [];
+
+        function runADLAnimationSequence() {
+            adlAnimTimeout.forEach(t => clearTimeout(t));
+            adlAnimTimeout = [];
+
+            document.querySelectorAll('.adl-item').forEach(item => item.classList.remove('highlighted'));
+            const banner = document.getElementById('claim-banner');
+            const calendarAnim = document.getElementById('calendar-anim');
+            banner.classList.remove('show');
+            calendarAnim.style.transform = 'scale(0)';
+
+            const targets = ['adl-3', 'adl-4', 'adl-5'];
+            let timeAccumulator = 600;
+
+            targets.forEach((id) => {
+                adlAnimTimeout.push(setTimeout(() => {
+                    document.getElementById(id).classList.add('highlighted');
+                }, timeAccumulator));
+                timeAccumulator += 700;
+            });
+
+            adlAnimTimeout.push(setTimeout(() => {
+                banner.classList.add('show');
+            }, timeAccumulator + 400));
+
+            adlAnimTimeout.push(setTimeout(() => {
+                calendarAnim.style.transform = 'scale(1)';
+            }, timeAccumulator + 900));
+        }
+
+        // --- 6. OAD Infographic Animation Logic ---
+        function playOADAnimationSequence() {
+            const step1 = document.getElementById('oad-step-1');
+            const arrow1 = document.getElementById('oad-arrow-1');
+            const step2 = document.getElementById('oad-step-2');
+            const arrow2 = document.getElementById('oad-arrow-2');
+            const step3 = document.getElementById('oad-step-3');
+            
+            step1.classList.remove('show'); step2.classList.remove('show'); step3.classList.remove('show');
+            arrow1.classList.remove('grow'); arrow2.classList.remove('grow');
+
+            setTimeout(() => { step1.classList.add('show'); }, 0);
+            setTimeout(() => { arrow1.classList.add('grow'); }, 900);
+            setTimeout(() => { step2.classList.add('show'); }, 1800);
+            setTimeout(() => { arrow2.classList.add('grow'); }, 2700);
+            setTimeout(() => { step3.classList.add('show'); }, 3600);
+        }
+
+        // --- 7. Three.js 3D Interactive Background + Birthday Assets ---
+        const initThreeJS = () => {
+            const container = document.getElementById('canvas-container');
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color('#030611');
+            
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 30;
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Ambient & Point lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+            
+            const pointLight1 = new THREE.PointLight(0xFFD700, 1.8, 100);
+            pointLight1.position.set(20, 20, 25);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xffffff, 1.2, 100);
+            pointLight2.position.set(-20, -10, 15);
+            scene.add(pointLight2);
+
+            // Gold Particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 1500;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 120;
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particleCanvas = document.createElement('canvas');
+            particleCanvas.width = 16; particleCanvas.height = 16;
+            const particleCtx = particleCanvas.getContext('2d');
+            const pGradient = particleCtx.createRadialGradient(8, 8, 0, 8, 8, 8);
+            pGradient.addColorStop(0, 'rgba(255, 215, 0, 1)');
+            pGradient.addColorStop(1, 'rgba(255, 215, 0, 0)');
+            particleCtx.fillStyle = pGradient;
+            particleCtx.fillRect(0, 0, 16, 16);
+            const particleTexture = new THREE.CanvasTexture(particleCanvas);
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.55, map: particleTexture, transparent: true, opacity: 0.8,
+                blending: THREE.AdditiveBlending, depthWrite: false
+            });
+
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+
+            // Floating professional background elements (Standard meshes)
+            const abstractObjects = [];
+            const objMaterial = new THREE.MeshStandardMaterial({
+                color: 0xFFD700, metalness: 0.9, roughness: 0.15,
+                transparent: true, opacity: 0.25
+            });
+
+            for(let i=0; i<15; i++) {
+                const geometry = Math.random() > 0.5 ? new THREE.BoxGeometry(1.2, 1.2, 1.2) : new THREE.SphereGeometry(1, 16, 16);
+                const mesh = new THREE.Mesh(geometry, objMaterial);
+                mesh.position.x = (Math.random() - 0.5) * 80;
+                mesh.position.y = (Math.random() - 0.5) * 80;
+                mesh.position.z = (Math.random() - 0.5) * 50 - 15;
+                mesh.rotation.x = Math.random() * Math.PI;
+                mesh.rotation.y = Math.random() * Math.PI;
+                scene.add(mesh);
+                abstractObjects.push({
+                    mesh: mesh,
+                    rotSpeedX: (Math.random() - 0.5) * 0.015,
+                    rotSpeedY: (Math.random() - 0.5) * 0.015,
+                    floatSpeed: (Math.random() * 0.015) + 0.005
+                });
+            }
+
+            // --- ADVANCED 3D BIRTHDAY PRESENTATION ASSETS ---
+
+            // A. Luxury Birthday Cake Centerpiece
+            const cakeGroup = new THREE.Group();
+
+            // Cake Stand Base
+            const standMat = new THREE.MeshStandardMaterial({ color: 0xeeeeee, metalness: 0.5, roughness: 0.1 });
+            const standBase = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2.5, 1.8, 32), standMat);
+            standBase.position.y = -1.9;
+            cakeGroup.add(standBase);
+
+            const standPlate = new THREE.Mesh(new THREE.CylinderGeometry(4.8, 4.8, 0.4, 32), standMat);
+            standPlate.position.y = -0.9;
+            cakeGroup.add(standPlate);
+
+            // Cake Tier 1 (Base Chocolate)
+            const tier1Mat = new THREE.MeshStandardMaterial({ color: 0x4A2C11, roughness: 0.5 }); // rich chocolate
+            const tier1 = new THREE.Mesh(new THREE.CylinderGeometry(4.2, 4.2, 2.4, 32), tier1Mat);
+            tier1.position.y = 0.3;
+            cakeGroup.add(tier1);
+
+            // Golden Frosting Ring Tier 1
+            const goldMat = new THREE.MeshStandardMaterial({ color: 0xFFD700, metalness: 0.9, roughness: 0.15 });
+            const frosting1 = new THREE.Mesh(new THREE.CylinderGeometry(4.25, 4.25, 0.4, 32), goldMat);
+            frosting1.position.y = 1.3;
+            cakeGroup.add(frosting1);
+
+            // Cake Tier 2 (Cream Vanilla)
+            const tier2Mat = new THREE.MeshStandardMaterial({ color: 0xfffdd0, roughness: 0.4 }); // Creamy vanilla
+            const tier2 = new THREE.Mesh(new THREE.CylinderGeometry(3.0, 3.0, 1.8, 32), tier2Mat);
+            tier2.position.y = 2.0;
+            cakeGroup.add(tier2);
+
+            // Golden Frosting Ring Tier 2
+            const frosting2 = new THREE.Mesh(new THREE.CylinderGeometry(3.05, 3.05, 0.3, 32), goldMat);
+            frosting2.position.y = 2.8;
+            cakeGroup.add(frosting2);
+
+            // Strawberries / Cherries topping
+            const berryGeo = new THREE.SphereGeometry(0.28, 16, 16);
+            const berryMat = new THREE.MeshStandardMaterial({ color: 0xD2143A, roughness: 0.25 });
+            for (let i = 0; i < 8; i++) {
+                const angle = (i / 8) * Math.PI * 2;
+                const berry = new THREE.Mesh(berryGeo, berryMat);
+                berry.position.set(Math.cos(angle) * 3.6, 1.45, Math.sin(angle) * 3.6);
+                cakeGroup.add(berry);
+            }
+            for (let i = 0; i < 6; i++) {
+                const angle = (i / 6) * Math.PI * 2;
+                const berry = new THREE.Mesh(berryGeo, berryMat);
+                berry.position.set(Math.cos(angle) * 2.4, 2.95, Math.sin(angle) * 2.4);
+                cakeGroup.add(berry);
+            }
+
+            // Birthday Candles
+            const candleMat = new THREE.MeshStandardMaterial({ color: 0xFF1493, roughness: 0.2 }); // Neon Pink
+            const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.5, 16), candleMat);
+            candle.position.set(0, 3.6, 0);
+            cakeGroup.add(candle);
+
+            // Glowing Flame with flicker animation data
+            const flameMat = new THREE.MeshBasicMaterial({ color: 0xFF8C00 }); // Vibrant orange
+            const flame = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.6, 10), flameMat);
+            flame.position.set(0, 4.6, 0);
+            cakeGroup.add(flame);
+
+            // Scale & position cake to float optimally behind the title card
+            cakeGroup.position.set(0, -6.5, 4);
+            scene.add(cakeGroup);
+
+            // B. 3D Luxury Floating Metallic Balloons
+            const balloons = [];
+            const createBalloonMesh = (colorHex, x, y, z) => {
+                const balloonGroup = new THREE.Group();
+
+                // Balloon Main Body
+                const bodyGeo = new THREE.SphereGeometry(1.8, 32, 24);
+                bodyGeo.scale(1, 1.35, 1);
+                const bodyMat = new THREE.MeshStandardMaterial({
+                    color: colorHex, metalness: 0.95, roughness: 0.1, envMapIntensity: 1.5
+                });
+                const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+                balloonGroup.add(bodyMesh);
+
+                // Balloon Knot
+                const knotMesh = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.5, 8), bodyMat);
+                knotMesh.position.y = -2.4;
+                knotMesh.rotation.z = Math.PI;
+                balloonGroup.add(knotMesh);
+
+                // Balloon String
+                const stringMesh = new THREE.Mesh(
+                    new THREE.CylinderGeometry(0.02, 0.02, 7, 8),
+                    new THREE.MeshBasicMaterial({ color: 0xcccccc, transparent: true, opacity: 0.6 })
+                );
+                stringMesh.position.y = -5.9;
+                balloonGroup.add(stringMesh);
+
+                balloonGroup.position.set(x, y, z);
+                scene.add(balloonGroup);
+
+                balloons.push({
+                    group: balloonGroup,
+                    baseX: x, baseY: y, baseZ: z,
+                    swayOffset: Math.random() * Math.PI * 2,
+                    swaySpeed: 1.2 + Math.random() * 1.4
+                });
+            };
+
+            createBalloonMesh(0xFFD700, -11, 4, 6);  // Golden Balloon
+            createBalloonMesh(0xE0E0E0, -13, 1, 4);  // Silver Balloon
+            createBalloonMesh(0xB8860B, 11, 3, 6);   // Dark Gold Balloon
+            createBalloonMesh(0xE0A96D, 13, 0, 4);   // Rose Gold Balloon
+
+            // C. 3D Floating Wrapping Gift Boxes
+            const gifts = [];
+            const createGiftMesh = (boxColor, ribbonColor, x, y, z) => {
+                const giftGroup = new THREE.Group();
+
+                const boxMesh = new THREE.Mesh(
+                    new THREE.BoxGeometry(1.4, 1.4, 1.4),
+                    new THREE.MeshStandardMaterial({ color: boxColor, roughness: 0.3 })
+                );
+                giftGroup.add(boxMesh);
+
+                const ribbonMat = new THREE.MeshStandardMaterial({ color: ribbonColor, metalness: 0.6, roughness: 0.2 });
+                const ribbonX = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.2, 1.45), ribbonMat);
+                const ribbonY = new THREE.Mesh(new THREE.BoxGeometry(0.2, 1.45, 1.45), ribbonMat);
+                giftGroup.add(ribbonX);
+                giftGroup.add(ribbonY);
+
+                giftGroup.position.set(x, y, z);
+                scene.add(giftGroup);
+
+                gifts.push({
+                    group: giftGroup,
+                    baseX: x, baseY: y, baseZ: z,
+                    rotX: (Math.random() - 0.5) * 0.02,
+                    rotY: (Math.random() - 0.5) * 0.02,
+                    floatOffset: Math.random() * Math.PI
+                });
+            };
+
+            createGiftMesh(0xD2143A, 0xFFD700, -6, -6, 5); // Red Box
+            createGiftMesh(0x1F51FF, 0xffffff, 6, -7, 5);  // Neon Blue Box
+
+            // D. 3D Falling Shiny Confetti Tumbles
+            const confettiGroup = new THREE.Group();
+            const confettiCount = 140;
+            const confettiColors = [0xFFD700, 0xC0C0C0, 0xFF1493, 0x00FFFF, 0x32CD32, 0xFF4500];
+            const confettiData = [];
+
+            const confettiGeo = new THREE.PlaneGeometry(0.55, 0.28);
+            for(let i=0; i<confettiCount; i++) {
+                const confMat = new THREE.MeshStandardMaterial({
+                    color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+                    side: THREE.DoubleSide,
+                    roughness: 0.2,
+                    metalness: 0.6
+                });
+                const confMesh = new THREE.Mesh(confettiGeo, confMat);
+                confMesh.position.set(
+                    (Math.random() - 0.5) * 70,
+                    Math.random() * 50 - 20,
+                    (Math.random() - 0.5) * 40
+                );
+                confMesh.rotation.set(
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI,
+                    Math.random() * Math.PI
+                );
+                confettiGroup.add(confMesh);
+
+                confettiData.push({
+                    mesh: confMesh,
+                    speedY: 0.08 + Math.random() * 0.1,
+                    rotSpeedX: (Math.random() - 0.5) * 0.06,
+                    rotSpeedY: (Math.random() - 0.5) * 0.06,
+                    rotSpeedZ: (Math.random() - 0.5) * 0.06,
+                    waveOffset: Math.random() * Math.PI * 2
+                });
+            }
+            scene.add(confettiGroup);
+
+
+            // Mouse interactions track variables
+            let mouseX = 0; let mouseY = 0;
+            let currentX = 0; let currentY = 0;
+
+            document.addEventListener('mousemove', (event) => {
+                mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            });
+
+            const clock = new THREE.Clock();
+
+            // Render loop with smooth transitions and wind sway simulation
+            const animate = () => {
+                requestAnimationFrame(animate);
+                const elapsedTime = clock.getElapsedTime();
+
+                // Dynamic camera views interpolation based on current active section
+                camera.position.z += (targetZ - camera.position.z) * 0.04;
+                camera.position.y += (targetY - camera.position.y) * 0.04;
+                scene.rotation.y += (targetRotY - scene.rotation.y) * 0.04;
+
+                currentX += (mouseX * 4 - currentX) * 0.05;
+                currentY += (mouseY * 4 - currentY) * 0.05;
+
+                // ** DOM HBD Text 3D Interactive Tilt Engine **
+                if(currentView === 'home') {
+                    const hbdDOM = document.getElementById('hbd-3d-wrapper');
+                    if(hbdDOM) {
+                        // Max tilt rotation 25deg up/down and left/right based on mouse
+                        const tiltX = -(currentY * 6); 
+                        const tiltY = (currentX * 6);
+                        // Add organic floating float
+                        const floatY = Math.sin(elapsedTime * 1.5) * 6;
+                        hbdDOM.style.transform = `translateZ(20px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(${floatY}px)`;
+                    }
+                }
+
+                // Slowly rotate background particles & abstract elements
+                particlesMesh.rotation.y += 0.0008 * globalSpeedMultiplier + (currentX - particlesMesh.rotation.y) * 0.005;
+                particlesMesh.rotation.x += 0.0005 * globalSpeedMultiplier + (currentY - particlesMesh.rotation.x) * 0.005;
+                
+                const positions = particlesGeometry.attributes.position.array;
+                for(let i = 1; i < particlesCount * 3; i += 3) {
+                    positions[i] -= 0.018 * globalSpeedMultiplier;
+                    if (positions[i] < -60) positions[i] = 60;
+                }
+                particlesGeometry.attributes.position.needsUpdate = true;
+
+                abstractObjects.forEach(obj => {
+                    obj.mesh.rotation.x += obj.rotSpeedX;
+                    obj.mesh.rotation.y += obj.rotSpeedY;
+                    obj.mesh.position.y += Math.sin(elapsedTime * obj.floatSpeed) * 0.04;
+                });
+
+                // INTERPOLATE SCALE TRANSITION FOR HBD 3D ASSETS
+                const targetScale = (currentView === 'home') ? 1.0 : 0.0;
+                birthdayScale += (targetScale - birthdayScale) * 0.08;
+
+                cakeGroup.scale.set(birthdayScale, birthdayScale, birthdayScale);
+                confettiGroup.scale.set(birthdayScale, birthdayScale, birthdayScale);
+                balloons.forEach(b => b.group.scale.set(birthdayScale, birthdayScale, birthdayScale));
+                gifts.forEach(g => g.group.scale.set(birthdayScale, birthdayScale, birthdayScale));
+
+                // Process active HBD assets animations
+                if (birthdayScale > 0.01) {
+                    // 1. Candle Flame flicker
+                    const scaleFlicker = 1.0 + Math.sin(elapsedTime * 25.0) * 0.08;
+                    flame.scale.set(scaleFlicker, scaleFlicker + (Math.cos(elapsedTime * 15.0) * 0.05), scaleFlicker);
+
+                    // 2. Interactive Sway of Balloons
+                    balloons.forEach(b => {
+                        const t = elapsedTime * b.swaySpeed;
+                        let swayX = Math.sin(t + b.swayOffset) * 0.4;
+                        let swayZ = Math.cos(t + b.swayOffset) * 0.4;
+
+                        const pushX = currentX * 1.5;
+                        const pushY = currentY * 1.5;
+
+                        b.group.position.x = b.baseX + swayX + pushX * 0.4;
+                        b.group.position.z = b.baseZ + swayZ - pushY * 0.4;
+                        b.group.position.y = b.baseY + Math.sin(t * 0.5) * 0.25;
+
+                        b.group.rotation.z = (swayX + pushX * 0.08) * 0.12;
+                        b.group.rotation.x = (swayZ - pushY * 0.08) * 0.12;
+                    });
+
+                    // 3. Falling Shiny Confetti tumble logic
+                    confettiData.forEach(c => {
+                        c.mesh.position.y -= c.speedY * globalSpeedMultiplier;
+                        c.mesh.position.x += Math.sin(elapsedTime * 2.5 + c.waveOffset) * 0.025;
+                        
+                        c.mesh.rotation.x += c.rotSpeedX;
+                        c.mesh.rotation.y += c.rotSpeedY;
+                        c.mesh.rotation.z += c.rotSpeedZ;
+                        
+                        if(c.mesh.position.y < -35) {
+                            c.mesh.position.y = 35;
+                            c.mesh.position.x = (Math.random() - 0.5) * 70;
+                        }
+                    });
+
+                    // 4. Floating Gift boxes bobbing & tumble
+                    gifts.forEach(g => {
+                        g.group.rotation.x += g.rotX;
+                        g.group.rotation.y += g.rotY;
+                        g.group.position.y = g.baseY + Math.sin(elapsedTime * 1.5 + g.floatOffset) * 0.3;
+                    });
+
+                    // 5. Cake slow spinning focus
+                    cakeGroup.rotation.y = elapsedTime * 0.1;
+                }
+
+                renderer.render(scene, camera);
+            };
+
+            animate();
+
+            // Resize handle
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                
+                if(videoCanvas) {
+                    videoCanvas.width = videoCanvas.offsetWidth;
+                    videoCanvas.height = videoCanvas.offsetHeight;
+                    drawPoster();
+                }
+            });
+        };
+
+        // Initialize 3D & Play Intro Animation on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            initThreeJS();
+            playHBDAnimation();
+        });
+
+    </script>
+</body>
+</html>
