@@ -81,10 +81,10 @@
         }
         
         .hbd-wrapper-height {
-            height: 200px;
+            height: 140px;
         }
         @media (min-width: 768px) {
-            .hbd-wrapper-height { height: 280px; }
+            .hbd-wrapper-height { height: 200px; }
         }
 
         /* Project Gift Box Cards */
@@ -179,7 +179,7 @@
         
         .hbd-3d-text {
             font-family: 'Charmonman', serif;
-            font-size: clamp(2.8rem, 11vw, 8rem);
+            font-size: clamp(1.8rem, 7vw, 5rem);
             font-weight: 900;
             line-height: 1.1;
             text-align: center;
@@ -562,7 +562,7 @@
                     
                     <!-- 1. INTRO GIFT BOX -->
                     <div id="gift-intro-container" class="absolute z-50 flex flex-col items-center justify-center gift-intro">
-                        <i class="fas fa-gift text-7xl md:text-[8rem] text-gold drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse"></i>
+                        <i class="fas fa-gift text-5xl md:text-6xl text-gold drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse"></i>
                     </div>
 
                     <!-- 2. HBD TEXT WRAPPER (Pops out after gift opens) -->
@@ -578,7 +578,7 @@
                                 </defs>
                             </svg>
                             <!-- Diamond above text -->
-                            <svg class="hbd-crown block mb-6" viewBox="0 0 100 82" style="width:clamp(5rem,18vw,10rem);height:auto;overflow:visible" filter="url(#dm-glow)">
+                            <svg class="hbd-crown block mb-3" viewBox="0 0 100 82" style="width:clamp(3rem,10vw,6rem);height:auto;overflow:visible" filter="url(#dm-glow)">
                                 <polygon points="18,14 5,38 30,38" fill="#5a3800"/>
                                 <polygon points="18,14 30,38 50,38 50,14" fill="#FFF0A0"/>
                                 <polygon points="50,14 50,38 70,38 82,14" fill="#FFD700"/>
@@ -1118,13 +1118,11 @@
             if (gift && !gift.classList.contains('gift-pop-out')) {
                 gift.classList.add('gift-pop-out');
 
-                // Show HBD text after gift bursts
+                // Show HBD text after gift bursts — no loop
                 textPopTimeout = setTimeout(() => {
                     if(textContainer) {
                         textContainer.classList.add('text-pop-in');
                     }
-                    // Loop: restart after showing HBD text for 2.5 seconds
-                    setTimeout(playHBDAnimation, 2500);
                 }, 300);
             }
         }
