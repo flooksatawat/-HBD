@@ -90,21 +90,22 @@
         /* Project Gift Box Cards */
         .project-gift-wrap {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: flex-start;
-            padding: 0 2rem;
-            flex-wrap: nowrap;
+            gap: 2rem;
+            padding: 0 1rem;
+            flex-wrap: wrap;
         }
         .project-gift-card {
-            flex: 0 0 140px;
-            width: 140px;
+            flex: 0 0 clamp(110px, 40vw, 160px);
+            width: clamp(110px, 40vw, 160px);
             display: flex;
             flex-direction: column;
             align-items: center;
             cursor: pointer;
         }
         .project-gift-icon {
-            font-size: clamp(4rem, 10vw, 6rem);
+            font-size: clamp(3rem, 10vw, 6rem);
             color: #FFD700;
             filter: drop-shadow(0 0 18px rgba(255,215,0,0.85));
             transition: transform 0.3s ease, filter 0.3s ease;
@@ -129,7 +130,7 @@
             color: var(--gold-primary);
             letter-spacing: 0.05em;
             text-align: center;
-            white-space: nowrap;
+            white-space: normal;
         }
         .project-gift-sublabel {
             font-size: clamp(0.65rem, 1.5vw, 0.8rem);
@@ -178,7 +179,7 @@
         
         .hbd-3d-text {
             font-family: 'Charmonman', serif;
-            font-size: clamp(2rem, 8vw, 6rem);
+            font-size: clamp(2.8rem, 11vw, 8rem);
             font-weight: 900;
             line-height: 1.1;
             text-align: center;
@@ -461,30 +462,22 @@
            Mobile Overflow Fixes
         ==================================================== */
         @media (max-width: 767px) {
-            /* Prevent any element from overflowing screen width */
-            * { max-width: 100%; box-sizing: border-box; }
+            * { box-sizing: border-box; }
             img, svg { max-width: 100%; }
 
             /* Reduce glass panel padding on mobile */
             .glass-panel { padding: 1rem !important; }
 
-            /* Allow whitespace-nowrap spans to scroll inside their row */
-            .whitespace-nowrap, [style*="white-space: nowrap"] {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-width: 100%;
-            }
-
-            /* HBD text smaller on small phones */
-            .hbd-3d-text { font-size: clamp(1.8rem, 10vw, 3.5rem) !important; }
+            /* Allow long text to wrap */
+            .whitespace-nowrap { white-space: normal !important; overflow-wrap: break-word; }
 
             /* Gift label allow wrap */
-            .project-gift-label { white-space: normal !important; }
+            .project-gift-label { white-space: normal !important; font-size: 0.9rem !important; }
 
             /* Reduce ADL icon size */
             .adl-item i { font-size: 2rem; }
 
-            /* Cost counter section */
+            /* Cost counter */
             #cost-counter { font-size: clamp(1.5rem, 8vw, 2.5rem) !important; }
 
             /* Ensure all section wrappers clip */
@@ -492,6 +485,30 @@
                 overflow-x: hidden;
                 width: 100%;
             }
+
+            /* Health/Legacy step grids: stack vertically on mobile */
+            #view-health .grid-cols-2,
+            #view-legacy .grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+            #view-health .grid,
+            #view-legacy .grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Limit graphic sizes */
+            #view-health .max-w-\[120px\],
+            #view-health .max-w-\[220px\],
+            #view-health .max-w-\[280px\],
+            #view-legacy .max-w-\[120px\],
+            #view-legacy .max-w-\[220px\],
+            #view-legacy .max-w-\[280px\] {
+                max-width: 160px !important;
+                margin: 0 auto;
+            }
+
+            /* Prevent OPM tooltip overflow */
+            [class*="w-96"] { width: min(90vw, 22rem) !important; }
         }
 
         /* Smart Vertical Scroll Classes */
@@ -1106,9 +1123,11 @@
             }
         }
 
-        // Flip card on tap
+        // Flip card on tap — auto flip back after 2.5s
         function flipCard(el) {
-            el.classList.toggle('flipped');
+            if (el.classList.contains('flipped')) return;
+            el.classList.add('flipped');
+            setTimeout(() => el.classList.remove('flipped'), 2500);
         }
 
         // Wave animation on tap (run once)
