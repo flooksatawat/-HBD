@@ -748,9 +748,11 @@
                                                 from="0 50 50" to="360 50 50" dur="4s" repeatCount="indefinite"/>
                                         </circle>
 
-                                        <!-- Shield -->
-                                        <path d="M 50,20 C 65,20 73,28 73,40 C 73,58 50,78 50,78 C 50,78 27,58 27,40 C 27,28 35,20 50,20 Z"
-                                            fill="url(#goldGradient)" stroke="#FFD700" stroke-width="1.5" filter="url(#lifeGlow)"/>
+                                        <!-- Heart -->
+                                        <path d="M 50,72 C 50,72 18,52 18,34 C 18,24 26,18 34,18 C 40,18 46,22 50,27 C 54,22 60,18 66,18 C 74,18 82,24 82,34 C 82,52 50,72 50,72 Z"
+                                            fill="url(#goldGradient)" stroke="#FFD700" stroke-width="1.5" filter="url(#lifeGlow)">
+                                            <animate attributeName="opacity" values="1;0.85;1" dur="1s" repeatCount="indefinite"/>
+                                        </path>
 
                                         <!-- สัญลักษณ์ ∞ วาดต่อเนื่องบนโล่ -->
                                         <path id="inf-path"
