@@ -730,125 +730,95 @@
                                 <div class="relative w-full max-w-[120px] md:max-w-[220px] aspect-square flex items-center justify-center">
                                     <svg class="w-full h-full" viewBox="0 0 120 120">
                                         <defs>
-                                            <!-- Glow filter -->
-                                            <filter id="gf" x="-30%" y="-30%" width="160%" height="160%">
+                                            <filter id="dglow" x="-40%" y="-40%" width="180%" height="180%">
                                                 <feGaussianBlur stdDeviation="3" result="b"/>
                                                 <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                                             </filter>
-                                            <filter id="sf" x="-20%" y="-20%" width="140%" height="140%">
-                                                <feGaussianBlur stdDeviation="1.5" result="b"/>
+                                            <filter id="dsoft">
+                                                <feGaussianBlur stdDeviation="1" result="b"/>
                                                 <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
                                             </filter>
-                                            <!-- Gold 3D gradients -->
-                                            <radialGradient id="gd1" cx="35%" cy="30%" r="65%">
-                                                <stop offset="0%" stop-color="#FFF9C4"/>
-                                                <stop offset="40%" stop-color="#FFD700"/>
+                                            <linearGradient id="strand1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#FFD700"/>
+                                                <stop offset="50%" stop-color="#FFF9C4"/>
+                                                <stop offset="100%" stop-color="#FFD700"/>
+                                                <animateTransform attributeName="gradientTransform" type="translate"
+                                                    values="-1 0;1 0;-1 0" dur="3s" repeatCount="indefinite"/>
+                                            </linearGradient>
+                                            <linearGradient id="strand2" x1="100%" y1="0%" x2="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#B8860B"/>
+                                                <stop offset="50%" stop-color="#FFD700"/>
+                                                <stop offset="100%" stop-color="#B8860B"/>
+                                            </linearGradient>
+                                            <radialGradient id="nodeg" cx="35%" cy="35%" r="65%">
+                                                <stop offset="0%" stop-color="#FFFDE7"/>
                                                 <stop offset="100%" stop-color="#B8860B"/>
                                             </radialGradient>
-                                            <radialGradient id="gd2" cx="35%" cy="30%" r="65%">
-                                                <stop offset="0%" stop-color="#FFF3E0"/>
-                                                <stop offset="40%" stop-color="#FFCA28"/>
-                                                <stop offset="100%" stop-color="#9A6800"/>
-                                            </radialGradient>
-                                            <radialGradient id="gd3" cx="35%" cy="30%" r="65%">
-                                                <stop offset="0%" stop-color="#FFFDE7"/>
-                                                <stop offset="40%" stop-color="#FFE082"/>
-                                                <stop offset="100%" stop-color="#F57F17"/>
-                                            </radialGradient>
-                                            <!-- Heart gradient -->
-                                            <radialGradient id="hg" cx="40%" cy="30%" r="60%">
-                                                <stop offset="0%" stop-color="#FF8A80"/>
-                                                <stop offset="100%" stop-color="#C62828"/>
-                                            </radialGradient>
-                                            <!-- Ground gradient -->
-                                            <linearGradient id="grnd" x1="0%" y1="0%" x2="0%" y2="100%">
-                                                <stop offset="0%" stop-color="#FFD700" stop-opacity="0.3"/>
-                                                <stop offset="100%" stop-color="#FFD700" stop-opacity="0"/>
-                                            </linearGradient>
-                                            <!-- Background glow -->
-                                            <radialGradient id="bg" cx="50%" cy="70%" r="55%">
-                                                <stop offset="0%" stop-color="#1a3a6e" stop-opacity="0.8"/>
+                                            <radialGradient id="corebg" cx="50%" cy="50%" r="50%">
+                                                <stop offset="0%" stop-color="#0d2248" stop-opacity="1"/>
                                                 <stop offset="100%" stop-color="#040814" stop-opacity="0"/>
                                             </radialGradient>
                                         </defs>
 
                                         <!-- Background glow -->
-                                        <ellipse cx="60" cy="95" rx="55" ry="20" fill="url(#bg)"/>
+                                        <circle cx="60" cy="60" r="52" fill="url(#corebg)"/>
 
-                                        <!-- Pulse rings -->
-                                        <circle cx="60" cy="60" r="10" fill="none" stroke="#FFD700" stroke-width="0.6" opacity="0">
-                                            <animate attributeName="r" values="25;56" dur="3s" repeatCount="indefinite"/>
-                                            <animate attributeName="opacity" values="0.5;0" dur="3s" repeatCount="indefinite"/>
-                                        </circle>
-                                        <circle cx="60" cy="60" r="10" fill="none" stroke="#FFD700" stroke-width="0.6" opacity="0">
-                                            <animate attributeName="r" values="25;56" dur="3s" begin="1.5s" repeatCount="indefinite"/>
-                                            <animate attributeName="opacity" values="0.5;0" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                        <!-- Outer orbit ring -->
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,215,0,0.12)" stroke-width="1"/>
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="12 300" opacity="0.5">
+                                            <animateTransform attributeName="transform" type="rotate" from="0 60 60" to="360 60 60" dur="8s" repeatCount="indefinite"/>
                                         </circle>
 
-                                        <!-- ===== DAD (left, tallest) ===== -->
-                                        <!-- Shadow -->
-                                        <ellipse cx="28" cy="97" rx="11" ry="3" fill="rgba(0,0,0,0.4)"/>
-                                        <!-- Body -->
-                                        <rect x="19" y="64" width="18" height="30" rx="4" fill="url(#gd1)" filter="url(#sf)"/>
-                                        <!-- Neck -->
-                                        <rect x="26" y="58" width="4" height="8" rx="2" fill="url(#gd1)"/>
-                                        <!-- Head -->
-                                        <circle cx="28" cy="53" r="10" fill="url(#gd1)" filter="url(#sf)"/>
-                                        <!-- Face highlight -->
-                                        <ellipse cx="25" cy="50" rx="4" ry="5" fill="rgba(255,255,255,0.18)"/>
-                                        <!-- Left arm down -->
-                                        <rect x="14" y="64" width="6" height="20" rx="3" fill="url(#gd2)" transform="rotate(8 17 74)"/>
-                                        <!-- Right arm (reaching child) -->
-                                        <rect x="36" y="64" width="6" height="18" rx="3" fill="url(#gd2)" transform="rotate(-15 39 73)"/>
+                                        <!-- DNA double helix — left strand (sinusoidal) -->
+                                        <path d="M 40,10 C 55,22 65,22 80,34 C 65,46 55,46 40,58 C 55,70 65,70 80,82 C 65,94 55,94 40,106"
+                                            fill="none" stroke="url(#strand1)" stroke-width="3" stroke-linecap="round" filter="url(#dsoft)"
+                                            stroke-dasharray="200" stroke-dashoffset="200">
+                                            <animate attributeName="stroke-dashoffset" values="200;0" dur="1.5s" fill="freeze"/>
+                                            <animate attributeName="stroke-dashoffset" values="0;-200" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                        </path>
 
-                                        <!-- ===== MOM (right, slightly shorter) ===== -->
-                                        <ellipse cx="92" cy="97" rx="11" ry="3" fill="rgba(0,0,0,0.4)"/>
-                                        <!-- Skirt/body -->
-                                        <path d="M 84,94 L 80,64 Q 92,60 104,64 L 100,94 Z" fill="url(#gd2)" filter="url(#sf)"/>
-                                        <!-- Torso -->
-                                        <rect x="83" y="56" width="18" height="14" rx="4" fill="url(#gd1)"/>
-                                        <!-- Neck -->
-                                        <rect x="90" y="50" width="4" height="8" rx="2" fill="url(#gd1)"/>
-                                        <!-- Head -->
-                                        <circle cx="92" cy="44" r="10" fill="url(#gd1)" filter="url(#sf)"/>
-                                        <!-- Hair (long) -->
-                                        <path d="M 84,44 Q 80,55 82,64" stroke="url(#gd2)" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                        <path d="M 100,44 Q 104,55 102,64" stroke="url(#gd2)" stroke-width="4" fill="none" stroke-linecap="round"/>
-                                        <!-- Face highlight -->
-                                        <ellipse cx="89" cy="41" rx="4" ry="5" fill="rgba(255,255,255,0.18)"/>
-                                        <!-- Left arm (reaching child) -->
-                                        <rect x="80" y="60" width="6" height="18" rx="3" fill="url(#gd2)" transform="rotate(15 83 69)"/>
+                                        <!-- DNA double helix — right strand -->
+                                        <path d="M 80,10 C 65,22 55,22 40,34 C 55,46 65,46 80,58 C 65,70 55,70 40,82 C 55,94 65,94 80,106"
+                                            fill="none" stroke="url(#strand2)" stroke-width="3" stroke-linecap="round" filter="url(#dsoft)"
+                                            stroke-dasharray="200" stroke-dashoffset="200">
+                                            <animate attributeName="stroke-dashoffset" values="200;0" dur="1.5s" fill="freeze"/>
+                                            <animate attributeName="stroke-dashoffset" values="0;-200" dur="3s" begin="1.5s" repeatCount="indefinite"/>
+                                        </path>
 
-                                        <!-- ===== CHILD (center, smallest) ===== -->
-                                        <ellipse cx="60" cy="97" rx="9" ry="2.5" fill="rgba(0,0,0,0.35)"/>
-                                        <!-- Body -->
-                                        <rect x="53" y="72" width="14" height="22" rx="4" fill="url(#gd3)" filter="url(#sf)"/>
-                                        <!-- Neck -->
-                                        <rect x="58" y="67" width="4" height="6" rx="2" fill="url(#gd3)"/>
-                                        <!-- Head -->
-                                        <circle cx="60" cy="61" r="8" fill="url(#gd3)" filter="url(#sf)"/>
-                                        <!-- Face highlight -->
-                                        <ellipse cx="57" cy="59" rx="3" ry="4" fill="rgba(255,255,255,0.22)"/>
-                                        <!-- Arms up (held by parents) -->
-                                        <rect x="46" y="72" width="8" height="5" rx="2.5" fill="url(#gd3)" transform="rotate(-30 50 74)"/>
-                                        <rect x="66" y="72" width="8" height="5" rx="2.5" fill="url(#gd3)" transform="rotate(30 70 74)"/>
+                                        <!-- Rungs (base pairs) -->
+                                        <line x1="40" y1="10" x2="80" y2="10" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                                        <line x1="80" y1="34" x2="40" y2="34" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                                        <line x1="40" y1="58" x2="80" y2="58" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                                        <line x1="80" y1="82" x2="40" y2="82" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+                                        <line x1="40" y1="106" x2="80" y2="106" stroke="#FFD700" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
 
-                                        <!-- Ground reflection -->
-                                        <ellipse cx="60" cy="98" rx="48" ry="5" fill="url(#grnd)"/>
+                                        <!-- Glowing nodes at crossover points -->
+                                        <circle cx="80" cy="34" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="0s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="40" cy="58" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="0.4s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="80" cy="82" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="0.8s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="40" cy="34" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="0.2s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="80" cy="58" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="0.6s" repeatCount="indefinite"/>
+                                        </circle>
+                                        <circle cx="40" cy="82" r="4.5" fill="url(#nodeg)" filter="url(#dglow)">
+                                            <animate attributeName="opacity" values="1;0.4;1" dur="1.2s" begin="1.0s" repeatCount="indefinite"/>
+                                        </circle>
 
-                                        <!-- ===== HEART (center top) ===== -->
-                                        <g filter="url(#gf)">
-                                            <path d="M 60,22 C 60,22 55,16 51,16 C 46,16 44,20 45.5,23 C 47,26 60,32 60,32 C 60,32 73,26 74.5,23 C 76,20 74,16 69,16 C 65,16 60,22 60,22 Z"
-                                                fill="url(#hg)">
-                                                <animate attributeName="opacity" values="1;0.5;1" dur="1s" repeatCount="indefinite"/>
-                                                <animateTransform attributeName="transform" type="scale" additive="sum"
-                                                    values="1;1.15;1" dur="1s" repeatCount="indefinite" transformOrigin="60 24"/>
-                                            </path>
-                                            <!-- Heart shine -->
-                                            <ellipse cx="55" cy="20" rx="3" ry="2" fill="rgba(255,255,255,0.35)" transform="rotate(-30 55 20)">
-                                                <animate attributeName="opacity" values="0.35;0.1;0.35" dur="1s" repeatCount="indefinite"/>
-                                            </ellipse>
-                                        </g>
+                                        <!-- Travelling light dot -->
+                                        <circle r="4" fill="#FFFDE7" opacity="0.95" filter="url(#dglow)">
+                                            <animateMotion dur="3s" repeatCount="indefinite">
+                                                <mpath href="#dna-path"/>
+                                            </animateMotion>
+                                        </circle>
+                                        <path id="dna-path" d="M 40,10 C 55,22 65,22 80,34 C 65,46 55,46 40,58 C 55,70 65,70 80,82 C 65,94 55,94 40,106" fill="none" stroke="none"/>
                                     </svg>
                                 </div>
                             </div>
