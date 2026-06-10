@@ -734,40 +734,52 @@
                                                 <feGaussianBlur stdDeviation="2.5" result="blur"/>
                                                 <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
                                             </filter>
-                                            <linearGradient id="infinityGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" stop-color="#FFD700"/>
-                                                <stop offset="100%" stop-color="#FFF0A0"/>
-                                            </linearGradient>
+                                            <radialGradient id="dropGrad" cx="40%" cy="35%" r="60%">
+                                                <stop offset="0%" stop-color="#FFF176"/>
+                                                <stop offset="100%" stop-color="#FFD700"/>
+                                            </radialGradient>
                                         </defs>
 
-                                        <!-- Rotating orbit ring — endless cycle -->
-                                        <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,215,0,0.12)" stroke-width="1"/>
-                                        <circle cx="50" cy="50" r="40" fill="none" stroke="#FFD700" stroke-width="1.5"
-                                            stroke-dasharray="20 232" stroke-dashoffset="0" opacity="0.7">
+                                        <!-- Rotating orbit ring -->
+                                        <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,215,0,0.10)" stroke-width="1"/>
+                                        <circle cx="50" cy="50" r="42" fill="none" stroke="#FFD700" stroke-width="1.5"
+                                            stroke-dasharray="18 246" opacity="0.6">
                                             <animateTransform attributeName="transform" type="rotate"
-                                                from="0 50 50" to="360 50 50" dur="4s" repeatCount="indefinite"/>
+                                                from="0 50 50" to="360 50 50" dur="5s" repeatCount="indefinite"/>
                                         </circle>
 
-                                        <!-- Shield -->
-                                        <path d="M 50,20 C 65,20 73,28 73,40 C 73,58 50,78 50,78 C 50,78 27,58 27,40 C 27,28 35,20 50,20 Z"
-                                            fill="url(#goldGradient)" stroke="#FFD700" stroke-width="1.5" filter="url(#lifeGlow)"/>
-
-                                        <!-- Infinity symbol — ตลอดชีวิต -->
-                                        <path d="M 37,50 C 37,44 41,41 45,44 C 49,47 51,53 55,56 C 59,59 63,56 63,50 C 63,44 59,41 55,44 C 51,47 49,53 45,56 C 41,59 37,56 37,50 Z"
-                                            fill="none" stroke="#040814" stroke-width="2.5" stroke-linecap="round"
-                                            stroke-dasharray="100" stroke-dashoffset="100">
-                                            <animate attributeName="stroke-dashoffset" values="100;0;0;100"
-                                                dur="3s" repeatCount="indefinite"
-                                                keyTimes="0;0.5;0.75;1"/>
+                                        <!-- Water drop shape -->
+                                        <path d="M 50,15 C 50,15 72,38 72,55 C 72,67 62,76 50,76 C 38,76 28,67 28,55 C 28,38 50,15 50,15 Z"
+                                            fill="url(#dropGrad)" stroke="#FFD700" stroke-width="1.5" filter="url(#lifeGlow)">
+                                            <animate attributeName="opacity" values="1;0.85;1" dur="2s" repeatCount="indefinite"/>
                                         </path>
 
-                                        <!-- Pulse dot travelling the infinity -->
-                                        <circle r="3" fill="#FFD700" opacity="0.9" filter="url(#lifeGlow)">
-                                            <animateMotion dur="3s" repeatCount="indefinite">
-                                                <mpath href="#inf-path"/>
-                                            </animateMotion>
-                                        </circle>
-                                        <path id="inf-path" d="M 37,50 C 37,44 41,41 45,44 C 49,47 51,53 55,56 C 59,59 63,56 63,50 C 63,44 59,41 55,44 C 51,47 49,53 45,56 C 41,59 37,56 37,50 Z" fill="none" stroke="none"/>
+                                        <!-- Shine on drop -->
+                                        <ellipse cx="42" cy="38" rx="5" ry="8" fill="rgba(255,255,255,0.25)" transform="rotate(-20 42 38)"/>
+
+                                        <!-- Family: Dad (left) -->
+                                        <circle cx="39" cy="50" r="5" fill="#040814"/>
+                                        <path d="M 34,65 Q 39,58 44,65" fill="#040814" stroke="none"/>
+
+                                        <!-- Family: Mom (right) -->
+                                        <circle cx="61" cy="50" r="5" fill="#040814"/>
+                                        <path d="M 56,65 Q 61,58 66,65" fill="#040814" stroke="none"/>
+
+                                        <!-- Family: Child (center, smaller) -->
+                                        <circle cx="50" cy="55" r="3.5" fill="#040814"/>
+                                        <path d="M 46.5,65 Q 50,60 53.5,65" fill="#040814" stroke="none"/>
+
+                                        <!-- Hands holding — arc lines -->
+                                        <path d="M 44,60 Q 50,57 56,60" fill="none" stroke="#040814" stroke-width="1.5" stroke-linecap="round"/>
+
+                                        <!-- Heart above family -->
+                                        <path d="M 50,43 C 50,43 47,40 44.5,40 C 42,40 41,42.5 42,44 C 43,45.5 50,49 50,49 C 50,49 57,45.5 58,44 C 59,42.5 58,40 55.5,40 C 53,40 50,43 50,43 Z"
+                                            fill="#FF6B6B" opacity="0.9">
+                                            <animate attributeName="opacity" values="0.9;0.5;0.9" dur="1.2s" repeatCount="indefinite"/>
+                                            <animateTransform attributeName="transform" type="scale"
+                                                values="1 1;1.08 1.08;1 1" dur="1.2s" repeatCount="indefinite" additive="sum"
+                                                transformOrigin="50 44"/>
+                                        </path>
                                     </svg>
                                 </div>
                             </div>
