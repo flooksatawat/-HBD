@@ -193,18 +193,13 @@
             color: #FFE800;
             -webkit-text-stroke: 1px #B8860B;
             text-shadow:
-                0 1px 0 #d19a00,
-                0 2px 0 #c28f00,
-                0 3px 0 #b38400,
-                0 4px 0 #a47900,
-                0 5px 0 #956e00,
-                0 6px 0 #866300,
-                0 7px 0 #775800,
-                0 12px 15px rgba(0, 0, 0, 0.9),
-                0 0 25px rgba(255, 215, 0, 0.7);
-            animation: wave3D 3.5s ease-in-out infinite;
-            animation-delay: calc(var(--i) * 0.12s);
+                0 2px 4px rgba(0, 0, 0, 0.6),
+                0 0 16px rgba(255, 215, 0, 0.5);
             transform-style: preserve-3d;
+        }
+        .hbd-char.wave {
+            animation: wave3D 3.5s ease-in-out 1;
+            animation-delay: calc(var(--i) * 0.12s);
         }
 
         @keyframes wave3D {
@@ -237,29 +232,29 @@
             50% { transform: translateZ(100px) translateY(-25px) rotateY(20deg) rotateX(-10deg) scale(1.15); }
         }
 
+        /* Photo Slider */
+        .photo-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 1rem;
+            padding: 0.5rem 1.5rem 1rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .photo-slider::-webkit-scrollbar { display: none; }
+
         /* 3D Flipping Photo Cards */
         .img-upload-box {
-            position: relative;
-            width: 100%;
+            flex: 0 0 72vw;
+            max-width: 300px;
             aspect-ratio: 4 / 5;
             border-radius: 1.5rem;
             cursor: pointer;
             perspective: 1500px;
             z-index: 10;
-            animation: floatFrame 6s ease-in-out infinite;
+            scroll-snap-align: center;
             container-type: inline-size;
-        }
-        
-        .img-upload-box:nth-child(1) { animation-delay: 0s; }
-        .img-upload-box:nth-child(2) { animation-delay: -2s; }
-        .img-upload-box:nth-child(3) { animation-delay: -4s; }
-        .img-upload-box:nth-child(4) { animation-delay: -1s; }
-        .img-upload-box:nth-child(5) { animation-delay: -3s; }
-        .img-upload-box:nth-child(6) { animation-delay: -5s; }
-
-        @keyframes floatFrame {
-            0%, 100% { transform: translateY(0) rotateX(4deg) rotateY(-4deg); }
-            50% { transform: translateY(-15px) rotateX(-2deg) rotateY(4deg); }
         }
 
         .img-card-inner {
@@ -271,7 +266,7 @@
             border-radius: 1.5rem;
         }
 
-        .img-upload-box:hover .img-card-inner {
+        .img-upload-box.flipped .img-card-inner {
             transform: rotateY(180deg) scale(1.05);
             box-shadow: 0 25px 50px rgba(255, 215, 0, 0.5);
         }
@@ -585,7 +580,7 @@
                                 <line x1="70" y1="38" x2="50" y2="80" stroke="#FFD700" stroke-width="1.5"/>
                                 <circle cx="26" cy="24" r="2.5" fill="white" opacity="0.9" filter="url(#dm-glow)"/>
                             </svg>
-                            <h1 class="hbd-3d-text tracking-wider flex justify-center items-center">
+                            <h1 class="hbd-3d-text tracking-wider flex justify-center items-center" onclick="triggerWave()" style="cursor:pointer">
                                 <span class="hbd-char" style="--i:1">สุ</span>
                                 <span class="hbd-char" style="--i:2">ข</span>
                                 <span class="hbd-char" style="--i:3">สัน</span>
@@ -600,17 +595,14 @@
                 <!-- Spacer to allow 3D Cake backdrop placement -->
                 <div class="h-6 md:h-12 w-full"></div>
 
-                <!-- 3D FLIPPING PHOTO CARDS -->
-                <div class="grid grid-cols-3 gap-4 md:gap-6 mb-4 relative z-20">
-                    
+                <!-- 3D FLIPPING PHOTO CARDS SLIDER -->
+                <div class="photo-slider mb-4 relative z-20" id="photo-slider">
+
                     <!-- Card 1 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img1" src="./1.jpg" class="uploaded-img" alt="Gallery 1">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./1.jpg" class="uploaded-img" alt="Gallery 1">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-birthday-cake greeting-icon animate-bounce"></i>
@@ -619,15 +611,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Card 2 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img2" src="./2.jpg" class="uploaded-img" alt="Gallery 2">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./2.jpg" class="uploaded-img" alt="Gallery 2">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-gem greeting-icon animate-bounce"></i>
@@ -636,15 +625,12 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Card 3 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img3" src="./3.jpg" class="uploaded-img" alt="Gallery 3">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./3.jpg" class="uploaded-img" alt="Gallery 3">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-star greeting-icon animate-bounce"></i>
@@ -655,13 +641,10 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img4" src="./4.jpg" class="uploaded-img" alt="Gallery 4">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./4.jpg" class="uploaded-img" alt="Gallery 4">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-coins greeting-icon animate-bounce"></i>
@@ -672,13 +655,10 @@
                     </div>
 
                     <!-- Card 5 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img5" src="./5.jpg" class="uploaded-img" alt="Gallery 5">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./5.jpg" class="uploaded-img" alt="Gallery 5">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-heart greeting-icon animate-bounce"></i>
@@ -689,13 +669,10 @@
                     </div>
 
                     <!-- Card 6 -->
-                    <div class="img-upload-box group">
+                    <div class="img-upload-box" onclick="flipCard(this)">
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
-                                <img id="img6" src="./6.jpg" class="uploaded-img" alt="Gallery 6">
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-3 pb-2 z-10 pointer-events-none flex justify-center w-full">
-                                    <span class="text-white font-bold tracking-widest uppercase opacity-80 whitespace-nowrap text-[5cqi]"><i class="fas fa-cube mr-1"></i> แตะเพื่อพลิก</span>
-                                </div>
+                                <img src="./6.jpg" class="uploaded-img" alt="Gallery 6">
                             </div>
                             <div class="img-back pointer-events-none">
                                 <i class="fas fa-crown greeting-icon animate-bounce"></i>
@@ -1128,6 +1105,38 @@
                 }, 300);
             }
         }
+
+        // Flip card on tap
+        function flipCard(el) {
+            el.classList.toggle('flipped');
+        }
+
+        // Wave animation on tap (run once)
+        function triggerWave() {
+            document.querySelectorAll('.hbd-char').forEach(el => {
+                el.classList.remove('wave');
+                void el.offsetWidth; // reflow to restart
+                el.classList.add('wave');
+            });
+        }
+
+        // Photo slider auto-scroll
+        (function() {
+            const slider = document.getElementById('photo-slider');
+            if (!slider) return;
+            const cards = slider.querySelectorAll('.img-upload-box');
+            let current = 0;
+            let paused = false;
+
+            slider.addEventListener('touchstart', () => { paused = true; });
+            slider.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 3000); });
+
+            setInterval(() => {
+                if (paused) return;
+                current = (current + 1) % cards.length;
+                cards[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }, 3000);
+        })();
 
         // Project Gift Box Open
         function openProjectGift(cardId, viewId) {
