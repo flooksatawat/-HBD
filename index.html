@@ -616,7 +616,7 @@
                 <div class="photo-slider mb-4 relative z-20" id="photo-slider">
 
                     <!-- Card 1 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./1.jpg" class="uploaded-img" alt="Gallery 1">
@@ -630,7 +630,7 @@
                     </div>
 
                     <!-- Card 2 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./2.jpg" class="uploaded-img" alt="Gallery 2">
@@ -644,7 +644,7 @@
                     </div>
 
                     <!-- Card 3 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./3.jpg" class="uploaded-img" alt="Gallery 3">
@@ -658,7 +658,7 @@
                     </div>
 
                     <!-- Card 4 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./4.jpg" class="uploaded-img" alt="Gallery 4">
@@ -672,7 +672,7 @@
                     </div>
 
                     <!-- Card 5 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./5.jpg" class="uploaded-img" alt="Gallery 5">
@@ -686,7 +686,7 @@
                     </div>
 
                     <!-- Card 6 -->
-                    <div class="img-upload-box" onclick="flipCard(this)">
+                    <div class="img-upload-box" >
                         <div class="img-card-inner">
                             <div class="img-front flex flex-col items-center justify-center">
                                 <img src="./6.jpg" class="uploaded-img" alt="Gallery 6">
@@ -1123,38 +1123,34 @@
             }
         }
 
-        // Flip card on tap — auto flip back after 2.5s
-        function flipCard(el) {
-            if (el.classList.contains('flipped')) return;
-            el.classList.add('flipped');
-            setTimeout(() => el.classList.remove('flipped'), 2500);
-        }
-
         // Wave animation on tap (run once)
         function triggerWave() {
             document.querySelectorAll('.hbd-char').forEach(el => {
                 el.classList.remove('wave');
-                void el.offsetWidth; // reflow to restart
+                void el.offsetWidth;
                 el.classList.add('wave');
             });
         }
 
-        // Photo slider auto-scroll
+        // Photo slider auto-scroll + auto flip each card
         (function() {
             const slider = document.getElementById('photo-slider');
             if (!slider) return;
-            const cards = slider.querySelectorAll('.img-upload-box');
+            const cards = Array.from(slider.querySelectorAll('.img-upload-box'));
             let current = 0;
-            let paused = false;
 
-            slider.addEventListener('touchstart', () => { paused = true; });
-            slider.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 3000); });
-
-            setInterval(() => {
-                if (paused) return;
+            function flipAndScroll() {
+                // scroll to next card
                 current = (current + 1) % cards.length;
                 cards[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            }, 3000);
+
+                // flip the card that just came into view
+                const card = cards[current];
+                card.classList.add('flipped');
+                setTimeout(() => card.classList.remove('flipped'), 2000);
+            }
+
+            setInterval(flipAndScroll, 3500);
         })();
 
         // Project Gift Box Open
