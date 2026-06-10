@@ -449,9 +449,8 @@
                 <div class="hbd-3d-container relative hbd-wrapper-height flex items-center justify-center">
                     
                     <!-- 1. INTRO GIFT BOX -->
-                    <div id="gift-intro-container" class="absolute z-50 flex flex-col items-center justify-center gift-intro cursor-pointer" onclick="forcePopGift()">
-                        <i class="fas fa-gift text-7xl md:text-[8rem] text-gold drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse hover:scale-110 transition-transform"></i>
-                        <p class="text-gold text-[10px] md:text-sm tracking-widest mt-6 font-bold animate-bounce uppercase border border-gold/50 rounded-full px-4 py-1.5 bg-black/40 backdrop-blur-sm">Click to open</p>
+                    <div id="gift-intro-container" class="absolute z-50 flex flex-col items-center justify-center gift-intro">
+                        <i class="fas fa-gift text-7xl md:text-[8rem] text-gold drop-shadow-[0_0_30px_rgba(255,215,0,0.8)] animate-pulse"></i>
                     </div>
 
                     <!-- 2. HBD TEXT WRAPPER (Pops out after gift opens) -->
@@ -953,8 +952,8 @@
                 textContainer.style.opacity = '0';
                 textContainer.style.transform = 'scale(0)';
 
-                // Auto Pop in 2.5 seconds if user doesn't click
-                giftPopTimeout = setTimeout(forcePopGift, 2500); 
+                // Auto Pop immediately
+                giftPopTimeout = setTimeout(forcePopGift, 0);
             }
         }
 
