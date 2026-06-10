@@ -79,6 +79,59 @@
             .hbd-wrapper-height { height: 240px; }
         }
 
+        /* Project Gift Box Cards */
+        .project-gift-wrap {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        .project-gift-card {
+            flex: 1;
+            min-width: 0;
+            max-width: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        .project-gift-icon {
+            font-size: clamp(4rem, 10vw, 7rem);
+            color: var(--gold-primary);
+            filter: drop-shadow(0 0 20px rgba(255,215,0,0.7));
+            transition: transform 0.3s ease, filter 0.3s ease;
+            animation: giftFloat 3s ease-in-out infinite;
+        }
+        .project-gift-card:nth-child(2) .project-gift-icon {
+            animation-delay: -1.5s;
+        }
+        @keyframes giftFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+        .project-gift-card:hover .project-gift-icon {
+            filter: drop-shadow(0 0 40px rgba(255,215,0,1));
+            transform: scale(1.15) rotate(0deg) !important;
+            animation-play-state: paused;
+        }
+        .project-gift-label {
+            margin-top: 1rem;
+            font-size: clamp(0.85rem, 2vw, 1.1rem);
+            font-weight: 700;
+            color: var(--gold-primary);
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+        .project-gift-sublabel {
+            font-size: clamp(0.65rem, 1.5vw, 0.8rem);
+            color: rgba(255,255,255,0.55);
+            text-align: center;
+            margin-top: 0.25rem;
+        }
+        .project-gift-card.pop-out .project-gift-icon {
+            animation: giftExplode 0.5s forwards ease-in;
+        }
+
         /* Intro Gift Animation Classes */
         .gift-intro {
             animation: dropInGift 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
@@ -622,23 +675,16 @@
 
             <div class="text-center mb-16 relative z-20">
                 <h2 class="text-2xl md:text-3xl font-bold mb-8 drop-shadow-sm">ขอมอบ 2 โครงการพิเศษ<br>แทนคำขอบคุณ ทุกคำอวยพร</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass-panel p-8 cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(255,215,0,0.15)] hover:border-gold group" onclick="switchView('view-health')">
-                        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-600 to-teal-400 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-heartbeat text-5xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-extrabold text-gold mb-3 group-hover:glow-gold transition-all">กองทุนสุขภาพ</h3>
-                        <p class="text-gray-300">ความคุ้มครองสุขภาพเหนือระดับ เลื่อนอ่านได้ทันที</p>
-                        <button class="mt-8 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-gray-900 transition-all font-semibold shadow-lg">เปิดดูรายละเอียด <i class="fas fa-arrow-right ml-2"></i></button>
+                <div class="project-gift-wrap">
+                    <div class="project-gift-card" id="gift-health" onclick="openProjectGift('gift-health','view-health')">
+                        <i class="fas fa-gift project-gift-icon"></i>
+                        <p class="project-gift-label">กองทุนสุขภาพ</p>
+                        <p class="project-gift-sublabel">แตะเพื่อเปิดของขวัญ</p>
                     </div>
-                    
-                    <div class="glass-panel p-8 cursor-pointer transform transition-all duration-300 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(255,215,0,0.15)] hover:border-gold group" onclick="switchView('view-legacy')">
-                        <div class="w-24 h-24 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-shield-alt text-5xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-extrabold text-gold mb-3 group-hover:glow-gold transition-all">กองทุนเงินสำรอง/มรดก</h3>
-                        <p class="text-gray-300">ส่งต่อความมั่งคั่งและรับมือกับทุกสถานการณ์ฉุกเฉิน</p>
-                        <button class="mt-8 px-8 py-3 rounded-full border border-gold text-gold hover:bg-gold hover:text-gray-900 transition-all font-semibold shadow-lg">เปิดดูรายละเอียด <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="project-gift-card" id="gift-legacy" onclick="openProjectGift('gift-legacy','view-legacy')">
+                        <i class="fas fa-gift project-gift-icon"></i>
+                        <p class="project-gift-label">กองทุนเงินสำรอง/มรดก</p>
+                        <p class="project-gift-sublabel">แตะเพื่อเปิดของขวัญ</p>
                     </div>
                 </div>
             </div>
@@ -978,6 +1024,14 @@
             }
         }
 
+        // Project Gift Box Open
+        function openProjectGift(cardId, viewId) {
+            const card = document.getElementById(cardId);
+            if (!card || card.classList.contains('pop-out')) return;
+            card.classList.add('pop-out');
+            setTimeout(() => switchView(viewId), 480);
+        }
+
         // View Navigation
         function switchView(viewId) {
             document.querySelectorAll('.view-section').forEach(el => {
@@ -997,6 +1051,12 @@
                 
                 // Replay Gift animation on return home
                 playHBDAnimation();
+
+                // Reset project gift boxes
+                ['gift-health','gift-legacy'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.remove('pop-out');
+                });
                 
             } else if (viewId === 'view-health') {
                 currentView = 'health';
