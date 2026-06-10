@@ -1138,22 +1138,25 @@
             });
         }
 
-        // Photo slider auto-scroll + auto flip each card
+        // Photo slider auto-scroll + auto flip each card — stops at last card
         (function() {
             const slider = document.getElementById('photo-slider');
             if (!slider) return;
             const cards = Array.from(slider.querySelectorAll('.img-upload-box'));
             let current = 0;
+            const last = cards.length - 1;
 
             function flipAndScroll() {
-                // scroll to next card
-                current = (current + 1) % cards.length;
+                if (current >= last) return;
+                current++;
                 cards[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
-                // flip the card that just came into view
                 const card = cards[current];
-                card.classList.add('flipped');
-                setTimeout(() => card.classList.remove('flipped'), 2000);
+                // only flip photo cards, not the gift reveal card
+                if (current < last) {
+                    card.classList.add('flipped');
+                    setTimeout(() => card.classList.remove('flipped'), 2000);
+                }
             }
 
             setInterval(flipAndScroll, 3500);
