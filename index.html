@@ -992,79 +992,80 @@
                         </div>
                     </div>
 
-                    <!-- TPD Special Benefit — redesigned -->
+                    <!-- TPD Special Benefit — side by side -->
                     <div class="mt-6 rounded-2xl border border-gold/30 bg-[#0a0f1e] overflow-hidden">
                         <!-- Header -->
-                        <div class="bg-gradient-to-r from-yellow-700/80 to-yellow-500/60 px-5 py-4 text-center">
-                            <p class="text-gold font-extrabold text-base md:text-lg leading-snug">สิทธิประโยชน์พิเศษ<br>จ่ายเพิ่มเป็น 2 เท่า</p>
-                            <p class="text-yellow-100 text-xs mt-1">กรณีทุพพลภาพถาวรสิ้นเชิงจากอุบัติเหตุบน<br><span class="font-bold">'ขนส่งสาธารณะ'</span> (ขณะเป็นผู้โดยสาร)</p>
+                        <div class="bg-gradient-to-r from-yellow-700/80 to-yellow-500/60 px-4 py-3 text-center">
+                            <p class="text-gold font-extrabold text-sm leading-snug">สิทธิประโยชน์พิเศษ จ่ายเพิ่มเป็น 2 เท่า</p>
+                            <p class="text-yellow-100 text-[10px] mt-1">ทุพพลภาพถาวรสิ้นเชิงจากอุบัติเหตุบน <span class="font-bold">'ขนส่งสาธารณะ'</span> (ขณะเป็นผู้โดยสาร)</p>
                         </div>
-                        <!-- Included section -->
-                        <div class="p-4 bg-[#0d1a0d]">
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="w-7 h-7 rounded-full bg-green-500 flex items-center justify-center shrink-0"><i class="fas fa-check text-white text-xs"></i></div>
-                                <span class="font-bold text-green-400 text-sm">คุ้มครอง <span class="text-green-300 font-normal text-xs">(INCLUDED)</span></span>
+                        <!-- Two columns side by side always -->
+                        <div class="grid grid-cols-2 gap-px bg-gold/10">
+                            <!-- Included -->
+                            <div class="p-3 bg-[#0d1a0d]">
+                                <div class="flex items-center gap-1 mb-2">
+                                    <div class="w-5 h-5 rounded-full bg-green-500 flex items-center justify-center shrink-0"><i class="fas fa-check text-white" style="font-size:8px;"></i></div>
+                                    <span class="font-bold text-green-400 text-xs">คุ้มครอง</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-1 text-center">
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-train text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">รถไฟ</span>
+                                    </div>
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-subway text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">รถไฟฟ้า</span>
+                                    </div>
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-bus text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">รถโดยสาร</span>
+                                    </div>
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-taxi text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">แท็กซี่</span>
+                                    </div>
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-ship text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">เรือสาธารณะ</span>
+                                    </div>
+                                    <div class="bg-green-900/30 rounded-lg py-2 px-1">
+                                        <i class="fas fa-plane text-green-400 text-base mb-0.5 block"></i>
+                                        <span class="text-gray-200 text-[10px]">เครื่องบินพาณิชย์</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="grid grid-cols-3 gap-2 text-center">
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-train text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">รถไฟ</span>
+                            <!-- Excluded -->
+                            <div class="p-3 bg-[#1a0d0d]">
+                                <div class="flex items-center gap-1 mb-2">
+                                    <div class="w-5 h-5 rounded-full bg-red-500 flex items-center justify-center shrink-0"><i class="fas fa-times text-white" style="font-size:8px;"></i></div>
+                                    <span class="font-bold text-red-400 text-xs">ไม่คุ้มครอง</span>
                                 </div>
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-subway text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">รถไฟฟ้า</span>
-                                </div>
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-bus text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">รถโดยสาร</span>
-                                </div>
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-taxi text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">แท็กซี่</span>
-                                </div>
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-ship text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">เรือสาธารณะ</span>
-                                </div>
-                                <div class="bg-green-900/30 rounded-xl py-3 px-1">
-                                    <i class="fas fa-plane text-green-400 text-2xl mb-1 block"></i>
-                                    <span class="text-gray-200 text-xs">เครื่องบินพาณิชย์</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Divider -->
-                        <div class="h-px bg-gold/20"></div>
-                        <!-- Excluded section -->
-                        <div class="p-4 bg-[#1a0d0d]">
-                            <div class="flex items-center gap-2 mb-3">
-                                <div class="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center shrink-0"><i class="fas fa-times text-white text-xs"></i></div>
-                                <span class="font-bold text-red-400 text-sm">ไม่คุ้มครอง <span class="text-red-300 font-normal text-xs">(EXCLUDED)</span></span>
-                            </div>
-                            <div class="grid grid-cols-1 gap-2">
-                                <div class="flex items-center gap-3 bg-red-900/20 rounded-xl px-3 py-2">
-                                    <i class="fas fa-car text-red-400 text-xl w-7 text-center shrink-0"></i>
-                                    <span class="text-gray-300 text-sm">รถยนต์รับจ้างส่วนบุคคล / รถเช่า</span>
-                                </div>
-                                <div class="flex items-center gap-3 bg-red-900/20 rounded-xl px-3 py-2">
-                                    <i class="fas fa-motorcycle text-red-400 text-xl w-7 text-center shrink-0"></i>
-                                    <span class="text-gray-300 text-sm">มอเตอร์ไซค์วิน</span>
-                                </div>
-                                <div class="flex items-center gap-3 bg-red-900/20 rounded-xl px-3 py-2">
-                                    <i class="fas fa-horse-head text-red-400 text-xl w-7 text-center shrink-0"></i>
-                                    <span class="text-gray-300 text-sm">รถสามล้อ</span>
-                                </div>
-                                <div class="flex items-center gap-3 bg-red-900/20 rounded-xl px-3 py-2">
-                                    <i class="fas fa-plane-departure text-red-400 text-xl w-7 text-center shrink-0"></i>
-                                    <span class="text-gray-300 text-sm">เครื่องบินส่วนตัว / เช่าเหมาลำ</span>
-                                </div>
-                                <div class="flex items-center gap-3 bg-red-900/20 rounded-xl px-3 py-2">
-                                    <i class="fas fa-helicopter text-red-400 text-xl w-7 text-center shrink-0"></i>
-                                    <span class="text-gray-300 text-sm">เฮลิคอปเตอร์</span>
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-2 bg-red-900/20 rounded-lg px-2 py-1.5">
+                                        <i class="fas fa-car text-red-400 text-sm w-4 text-center shrink-0"></i>
+                                        <span class="text-gray-300 text-[10px]">รถเช่า/รับจ้างส่วนตัว</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-red-900/20 rounded-lg px-2 py-1.5">
+                                        <i class="fas fa-motorcycle text-red-400 text-sm w-4 text-center shrink-0"></i>
+                                        <span class="text-gray-300 text-[10px]">มอเตอร์ไซค์วิน</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-red-900/20 rounded-lg px-2 py-1.5">
+                                        <i class="fas fa-horse-head text-red-400 text-sm w-4 text-center shrink-0"></i>
+                                        <span class="text-gray-300 text-[10px]">รถสามล้อ</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-red-900/20 rounded-lg px-2 py-1.5">
+                                        <i class="fas fa-plane-departure text-red-400 text-sm w-4 text-center shrink-0"></i>
+                                        <span class="text-gray-300 text-[10px]">เครื่องบินส่วนตัว</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-red-900/20 rounded-lg px-2 py-1.5">
+                                        <i class="fas fa-helicopter text-red-400 text-sm w-4 text-center shrink-0"></i>
+                                        <span class="text-gray-300 text-[10px]">เฮลิคอปเตอร์</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <!-- Footer note -->
-                        <div class="px-5 py-3 bg-yellow-900/20 text-center text-yellow-200 text-xs">
+                        <div class="px-4 py-2 bg-yellow-900/20 text-center text-yellow-200 text-[10px]">
                             <i class="fas fa-exclamation-triangle text-yellow-400 mr-1"></i>ไม่รวมอุบัติเหตุที่เกิดบนป้ายรถโดยสาร สถานี หรือท่าเรือ
                         </div>
                     </div>
