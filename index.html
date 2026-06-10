@@ -992,17 +992,20 @@
             const textContainer = document.getElementById('hbd-anim-container');
 
             if(gift && textContainer) {
-                // Reset Animations
-                gift.classList.remove('gift-pop-out');
-                gift.style.opacity = '1';
-                gift.style.visibility = 'visible';
-                
+                // Reset text
                 textContainer.classList.remove('text-pop-in');
                 textContainer.style.opacity = '0';
                 textContainer.style.transform = 'scale(0)';
 
-                // Auto Pop immediately
-                giftPopTimeout = setTimeout(forcePopGift, 0);
+                // Re-trigger drop-in animation
+                gift.classList.remove('gift-pop-out', 'gift-intro');
+                gift.style.opacity = '1';
+                gift.style.visibility = 'visible';
+                void gift.offsetWidth; // force reflow
+                gift.classList.add('gift-intro');
+
+                // Pop after drop-in animation (0.8s) completes
+                giftPopTimeout = setTimeout(forcePopGift, 900);
             }
         }
 
